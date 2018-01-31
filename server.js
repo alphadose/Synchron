@@ -11,5 +11,13 @@ var config = require('./config/config.json');
 app.listen(config.port);
 
 app.get('/', function(req, res) {
-	res.render("home")
+	res.render("home");
+});
+
+app.get('/create', function(req, res) {
+	res.render("create");
+});
+
+app.get('/join', function(req,  res) {
+	res.render("join");
 });

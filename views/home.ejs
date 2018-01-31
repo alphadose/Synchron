@@ -1,8 +1,14 @@
 <div id = "menu-div">
 	<div class = "menu-item" id = "create-room-div">
-		<button>Create Room</button>
+		<form action = "/create" method = "get">
+			<input type="submit" value = "Create Room"></input>
+		</form>
 	</div>
+
 	<div class = "menu-item" id = "join-room-div">
-		<button>Join Room</button>
+		<form action = "/join" method="get">
+			<input type="submit" value = "Join Room"></input>
+		</form>
 	</div>
 </div>
+<script type="text/javascript" src="./js/home.js"></script>
