@@ -18,6 +18,8 @@
   },
   "homepage": "https://github.com/harsh-98/MusicVR#readme",
   "dependencies": {
-    "express": "^4.16.2"
+    "ejs": "^2.5.7",
+    "express": "^4.16.2",
+    "express-ejs-layouts": "^2.3.1"
   }
 }
