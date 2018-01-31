@@ -1,0 +1,23 @@
+{
+  "name": "musicvr",
+  "version": "1.0.0",
+  "description": "The Virtual karaoke with different scene to choose from when singing.",
+  "main": "server.js",
+  "scripts": {
+    "test": "start",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/harsh-98/MusicVR.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/harsh-98/MusicVR/issues"
+  },
+  "homepage": "https://github.com/harsh-98/MusicVR#readme",
+  "dependencies": {
+    "express": "^4.16.2"
+  }
+}
