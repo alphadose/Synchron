@@ -12,7 +12,7 @@ app.use(ejsLayouts);
 var config = require('./config/config.json');
 app.set('port', config.port||3000);
 http.listen(app.get('port'), function() {
-	console.log("http server listening at port " + app.get('port'));
+  console.log('Http magic is happening on port ' + app.get('port'));
 });
 
 var cluster = {};
@@ -59,5 +59,5 @@ io.on('connection', function(socket) {
 				room.addMember(id);
 			});
 		}
-	})
-})
+	});
+});
