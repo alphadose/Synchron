@@ -25,8 +25,8 @@ app.get('/create', function(req, res) {
 	io.on('connection', function(socket) {
 		socket.on('peerId', function(id) {
 			var room = new Room(id);
-			cluster[id] = room;
-			socket.emit('sendRoomId', id);
+			cluster[socket.id] = room;
+			socket.emit('sendRoomId', socket.id);
 		});
 	});
 });
@@ -39,6 +39,7 @@ app.get('/room/:id', function(req,  res) {
 		io.on('connection', function(socket) {
 			socket.on('peerId', function(id) {
 				room.addMember(id);
+				io.to(roomId).emit('addPeer', id);
 			});
 		})
 	}

@@ -15,7 +15,20 @@ socket.on('sendRoomId', function(id) {
 			button: "COPY URL"
 	})
 	.then (() => {
-		$("#copy-btn").attr("data-clipboard-text", id);
+		$("#copy-btn").attr("data-clipboard-text", socket.id);
 		$("#copy-btn").trigger("click");
+	});
+})
+
+socket.on('addPeer', function(id) {
+	navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+	navigator.getUserMedia({video: true, audio: true}, function(stream) {
+		var call = peer.call(id, mediaStream);
+		call.on('stream', function(remoteStream) {
+    		console.log("called");
+  		});
+	},
+	function(err) {
+  		console.log('Failed to get local stream' ,err);
 	});
 })
