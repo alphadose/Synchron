@@ -12,7 +12,7 @@ app.use(ejsLayouts);
 var config = require('./config/config.json');
 app.set('port', config.port||3000);
 http.listen(app.get('port'), function() {
-	console.log("http server listening...");
+	console.log("http server listening at port " + app.get('port'));
 });
 
 var cluster = {};

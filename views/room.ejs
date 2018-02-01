@@ -1,9 +1,3 @@
 <script src="http://cdn.peerjs.com/0.3/peer.min.js"></script>
 <script type="text/javascript" src="/socket.io/socket.io.js"></script>
-<script type="text/javascript">
-	var socket = io();
-	var peer = new Peer({key : '2pr6j8fsr9roogvi'});
-	peer.on('open', function(id) {
-		socket.emit('peerId', id);
-	})
-</script>
+<script type="text/javascript" src = "./js/room.js"></script>
