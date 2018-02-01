@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+</head>
+<body>
+<button id="pause" onclick="pauseres();">Pause</button>
+<button id="play" onclick="fetch();">Play</button>
+<button id="add" onclick="add();">Add</button>
+<button id="next" onclick="next();">Next</button>
+<script type="text/javascript" src="js/buffer-loader.js"></script>
+<script type="text/javascript" src="js/player.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+  var socket = io();
+  async function player(action) {
+
+  	socket.emit('function', action);
+  }
+
+</script>
+</body>
+</html>
