@@ -1,6 +1,6 @@
 var clipboard = new Clipboard('.btn');
 clipboard.on('success', function(e) {
-	console.log("copied");
+	
 })
 var socket = io();
 var peer = new Peer({key : '2pr6j8fsr9roogvi'});

@@ -25,6 +25,7 @@ app.get('/create', function(req, res) {
 	io.on('connection', function(socket) {
 		socket.on('peerId', function(id) {
 			var room = new Room(id);
+			cluster[id] = room;
 			socket.emit('sendRoomId', id);
 		});
 	});
@@ -32,12 +33,16 @@ app.get('/create', function(req, res) {
 
 app.get('/room/:id', function(req,  res) {
 	var roomId = req.params.id;
-	console.log
-	res.render("room");
+	if (cluster[roomId] !== undefined) {
+		var room = cluster[roomId];
+		res.render("room");
+		io.on('connection', function(socket) {
+			socket.on('peerId', function(id) {
+				room.addMember(id);
+			});
+		})
+	}
+	else {
+		return res.redirect('/');
+	}
 });
-
-io.on('connection', function(socket) {
-	socket.on('peerId', function(id) {
-
-	});
-})
