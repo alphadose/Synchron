@@ -25,11 +25,14 @@ app.get('/create', function(req, res) {
 	io.on('connection', function(socket) {
 		socket.on('peerId', function(id) {
 			var room = new Room(id);
+			socket.emit('sendRoomId', id);
 		});
 	});
 });
 
 app.get('/room/:id', function(req,  res) {
+	var roomId = req.params.id;
+	console.log
 	res.render("room");
 });
 
