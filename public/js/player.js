@@ -4,6 +4,7 @@ var bufferLoader;
 var queue = [];
 var source;
 var timer;
+var stream;
 var susresBtn = document.getElementById('pause');
 
 function init() {
@@ -34,34 +35,50 @@ function Timer(callback, delay) {
 }
 
 async function fetch() {
-  
+
   if(queue.length === 0)
-  	return alert("List is empty");
+  	return alert("Queue is empty");
 
   bufferLoader = await new BufferLoader(
     context,
     [queue[0]],
-    finishedLoading
+    synchronise
     );
 
   queue.splice(0,1);
   bufferLoader.load();
+
 }
 
 async function add(url='audio/example.mp3') {
 
 	await queue.push(url);
 	alert("Added");
+
 }
 
 async function next() {
 
-	await timer.clear();
-	await source.stop();
+  socket.emit('clear');
+
+  if (typeof timer !== 'undefined')
+	 await timer.clear();
+
+  if (typeof source !== 'undefined')
+	 await source.stop();
+
   susresBtn.textContent = 'Pause';
 	await fetch();
   if(context.state === 'suspended')
     context.resume(); 
+
+}
+
+async function synchronise(bufferList) {
+
+  socket.emit('standby');
+  stream = bufferList;
+
 }
 
 async function finishedLoading(bufferList) {
@@ -72,6 +89,7 @@ async function finishedLoading(bufferList) {
   await source.connect(context.destination);
   source.start(0);
   timer = new Timer(next, duration);
+
 }
 
 async function pauseres() {
@@ -79,14 +97,19 @@ async function pauseres() {
   if(context.state === 'running') {
     context.suspend().then(async function() {
 
-      await timer.pause();
+      if (typeof timer !== 'undefined')
+        await timer.pause();
+
       susresBtn.textContent = 'Resume';
 
     });
+
   } else if(context.state === 'suspended') {
     context.resume().then(async function() {
 
-      await timer.resume();
+      if (typeof timer !== 'undefined')
+        await timer.resume();
+
       susresBtn.textContent = 'Pause';
 
     });  
