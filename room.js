@@ -1,9 +1,9 @@
-function Room(id) {
-	this.id = id;
+function Room(socketId, peerId) {
+	this.name = socketId;
 	this.strength = 1;
-	this.admin = id;
+	this.admin = peerId;
 	this.members = [];
-	this.members.push(id);
+	this.members.push(peerId);
 }
 
 Room.prototype.addMember = function(id) {
