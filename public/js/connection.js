@@ -1,4 +1,3 @@
-var socket = io();
 var peer = new Peer({key : '2pr6j8fsr9roogvi'});
 var peerId;
 var calls = [];
@@ -40,6 +39,7 @@ function callPeer(id) {
   calls[calls.length - 1].on('stream', function(remoteStream) {
     addMedia(remoteStream);
   });
+}
 
 function addMedia(remoteStream) {
   numOfPeers++;
@@ -63,5 +63,5 @@ function addMedia(remoteStream) {
       function(err) {
           console.log('Failed to get local stream' ,err);
       });
-  */
 }
+*/
