@@ -10,47 +10,7 @@
 <button id="next" onclick="player('next');">Next</button>
 <script type="text/javascript" src="js/buffer-loader.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
-<script>
-  var socket = io();
-  async function player(action) {
-
-  	socket.emit('function', action);
-
-  }
-
-  socket.on('go', function(){
-
-  	finishedLoading(stream);
-
-  });
-
-  socket.on('execute', function(action){
-
-      switch(action) {
-
-      	case "pauseres":
-      		pauseres();
-      		break;
-
-      	case "fetch":
-      		next();
-      		break;
-
-      	case "add":
-      		add();
-      		break;
-
-      	case "next":
-      		next();
-      		break;
-
-      	case "default":
-      		console.log("Please enter a valid action");
-      		break;
-
-      }
-  });
-</script>
+<script type="text/javascript" src="js/audio-controller.js"></script>
 <script type="text/javascript" src="js/player.js"></script>
 </body>
 </html>
