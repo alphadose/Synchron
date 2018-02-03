@@ -8,6 +8,10 @@
 <script type="text/javascript" src="/socket.io/socket.io.js"></script>
 <script type="text/javascript">
 	var socket = io();
+	socket.emit('type', {
+		type : 'admin',
+		url : 'create'
+	});
 </script>
 <script type="text/javascript" src = "/js/room-admin.js"></script>
 <script type="text/javascript" src = "/js/connection.js"></script>

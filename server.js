@@ -22,30 +22,42 @@ app.get('/', function(req, res) {
 
 app.get('/create', function(req, res) {
 	res.render('room-admin');
-	io.on('connection', function(socket) {
-		socket.on('peerId', function(id) {
-			var room = new Room(socket.id, id);
-			cluster[socket.id] = room;
-			socket.join(room.name);
-			socket.emit('sendUrl', config.url + "/room/" + socket.id);
-		});
-	});
 });
 
 app.get('/room/:id', function(req,  res) {
 	var roomId = req.params.id;
 	if (cluster[roomId] !== undefined) {
-		var room = cluster[roomId];
-		res.render("room");
-		io.on('connection', function(socket) {
-			socket.join(roomId);
-			socket.on('peerId', function(id) {
-				socket.broadcast.to(room.name).emit('addPeer', id);
-				room.addMember(id);
-			});
-		})
+		res.render('room', {
+			'roomId' : roomId
+		});
 	}
 	else {
 		return res.redirect('/');
 	}
 });
+
+io.on('connection', function(socket) {
+	var room;
+	socket.on('type', function(data) {
+		
+		if (data.type == "admin") {
+			socket.on('peerId', function(id) {
+				room = new Room(socket.id, id);
+				cluster[socket.id] = room;
+				socket.join(room.name);
+				socket.emit('sendUrl', config.url + "/room/" + socket.id);
+			});
+		}
+
+		else if (data.type == "member") {
+			var roomId = data.url;
+			room = cluster[roomId];
+			socket.join(roomId);
+			socket.on('peerId', function(id) {
+				console.log("emitted by " + id);
+				socket.broadcast.to(room.name).emit('addPeer', id);
+				room.addMember(id);
+			});
+		}
+	})
+})
