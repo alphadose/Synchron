@@ -3,35 +3,12 @@ var context;
 var bufferLoader;
 var queue = [];
 var source;
-var timer;
-var stream;
-var susresBtn = document.getElementById('pause');
+var susresBtn = document.getElementById("pause");
 
 function init() {
   // Fix up prefixing
   window.AudioContext = window.AudioContext || window.webkitAudioContext;
   context = new AudioContext();
-}
-
-function Timer(callback, delay) {
-    var timerId, start, remaining = delay;
-
-    this.pause = function() {
-        window.clearTimeout(timerId);
-        remaining -= new Date() - start;
-    };
-
-    this.resume = function() {
-        start = new Date();
-        window.clearTimeout(timerId);
-        timerId = window.setTimeout(callback, remaining);
-    };
-
-    this.clear = function() {
-        window.clearTimeout(timerId);
-    };
-
-    this.resume();
 }
 
 async function fetch() {
@@ -61,12 +38,6 @@ async function next() {
 
   socket.emit('clear');
 
-  if (typeof timer !== 'undefined')
-	 await timer.clear();
-
-  if (typeof source !== 'undefined')
-	 await source.stop();
-
   susresBtn.textContent = 'Pause';
 	await fetch();
   if(context.state === 'suspended')
@@ -76,39 +47,32 @@ async function next() {
 
 async function synchronise(bufferList) {
 
-  socket.emit('standby');
-  stream = bufferList;
-
-}
-
-async function finishedLoading(bufferList) {
-
   source = await context.createBufferSource();
+  source.onended = next;
   source.buffer = bufferList[0];
 
   await source.connect(context.destination);
-  source.start(0);
-  timer = new Timer(next, duration);
+  socket.emit('standby');
+
+}
+
+async function finishedLoading() {
+
+    source.start(0);
 
 }
 
 async function pauseres() {
 
   if(context.state === 'running') {
-    context.suspend().then(async function() {
-
-      if (typeof timer !== 'undefined')
-        await timer.pause();
+    context.suspend().then(function() {
 
       susresBtn.textContent = 'Resume';
 
     });
 
   } else if(context.state === 'suspended') {
-    context.resume().then(async function() {
-
-      if (typeof timer !== 'undefined')
-        await timer.resume();
+    context.resume().then(function() {
 
       susresBtn.textContent = 'Pause';
 

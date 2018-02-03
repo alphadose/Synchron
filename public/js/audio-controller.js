@@ -1,39 +1,40 @@
 var socket = io();
-  async function player(action) {
 
-  	socket.emit('function', action);
+async function player(action) {
 
-  }
+	socket.emit('function', action);
 
-  socket.on('go', function(){
+}
 
-  	finishedLoading(stream);
+socket.on('go', function(){
 
-  });
+	finishedLoading();
 
-  socket.on('execute', function(action){
+});
 
-      switch(action) {
+socket.on('execute', function(action){
 
-      	case "pauseres":
-      		pauseres();
-      		break;
+    switch(action) {
 
-      	case "fetch":
-      		next();
-      		break;
+    	case "pauseres":
+    		pauseres();
+    		break;
 
-      	case "add":
-      		add();
-      		break;
+    	case "fetch":
+    		next();
+    		break;
 
-      	case "next":
-      		next();
-      		break;
+    	case "add":
+    		add();
+    		break;
 
-      	case "default":
-      		console.log("Please enter a valid action");
-      		break;
+    	case "next":
+    		next();
+    		break;
 
-      }
-  });
+    	case "default":
+    		console.log("Please enter a valid action");
+    		break;
+
+    }
+});
