@@ -1,8 +1,9 @@
-var socket = io();
-
 async function player(action) {
 
-	socket.emit('function', action);
+	socket.emit('function', {
+        action : action,
+        roomId : roomId
+    });
 
 }
 
