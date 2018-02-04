@@ -68,9 +68,14 @@ io.on('connection', function(socket) {
 	});
 
    socket.on('disconnect', function(){
-    console.log('user disconnected');
-    console.log(cluster);
-    cluster[members[socket.id]].load--;
+   	console.log(cluster);
+   	console.log(members);
+    cluster[members[socket.id]].strength--;
+    if ( cluster[members[socket.id]].load > 0 )
+    	cluster[members[socket.id]].load--;
+    if ( cluster[members[socket.id]].strength === 0 )
+    	delete cluster[members[socket.id]];
+    delete members[socket.id];
   });
 
   socket.on('function', function(data){
@@ -83,7 +88,7 @@ io.on('connection', function(socket) {
 
   socket.on('standby', function(roomId){
     cluster[roomId].load++;
-    if( cluster[roomId].load === cluster[roomId].strength)
+    if( cluster[roomId].load === cluster[roomId].strength )
       io.to(roomId).emit('go');
   });
 
