@@ -8,23 +8,27 @@ var numOfPeers = 0;
 peer.on('open', async function(id) {
   console.log(socket.id);
   peerId = id;
-  await getStream();
-	socket.emit('peerId', id);
-  listenForCall();
-  socket.on('addPeer', function(id) {
-    console.log("emitted");
-    callPeer(id);
-  })
+  await getStream(id);
 })
 
-function getStream() {
+function getStream(id) {
   navigator.getUserMedia({video: true, audio: true}, function(stream) {
     window.localStream = stream;
     $("#self").prop("src", URL.createObjectURL(stream));
+    connectWithPeers(id);
   },
   function(err) {
     console.log(err);
   });
+}
+
+function connectWithPeers(id) {
+  socket.emit('peerId', id);
+  listenForCall();
+  socket.on('addPeer', function(id) {
+    console.log("emitted");
+    callPeer(id);
+  })  
 }
 
 function listenForCall() {
