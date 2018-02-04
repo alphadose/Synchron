@@ -50,6 +50,7 @@ io.on('connection', function(socket) {
 				cluster[socket.id] = room;
 				socket.join(room.name);
 				socket.emit('sendUrl', config.url + "/room/" + socket.id);
+				socket.emit('store', socket.id);
 			});
 		}
 
@@ -68,11 +69,12 @@ io.on('connection', function(socket) {
 
    socket.on('disconnect', function(){
     console.log('user disconnected');
+    console.log(cluster);
     cluster[members[socket.id]].load--;
   });
 
   socket.on('function', function(data){
-    io.in(cluster[data.roomId]).emit('execute', data.action);
+    io.to(data.roomId).emit('execute', data.action);
   });
 
   socket.on('clear', function(roomId){
@@ -82,7 +84,7 @@ io.on('connection', function(socket) {
   socket.on('standby', function(roomId){
     cluster[roomId].load++;
     if( cluster[roomId].load === cluster[roomId].strength)
-      io.in(cluster[roomId]).emit('go');
+      io.to(roomId).emit('go');
   });
 
 });

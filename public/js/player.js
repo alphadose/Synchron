@@ -31,7 +31,7 @@ async function fetch() {
 
 }
 
-async function add(url='audio/example.mp3') {
+async function add(url='/audio/example.mp3') {
 
 	await queue.push(url);
 	return alert("Added");
@@ -70,8 +70,10 @@ async function synchronise(bufferList) {
 
 async function finishedLoading() {
 
+    if ( playing === 0 )
+      source.start(0);
+    
     playing = 1;
-    source.start(0);
 
 }
 
