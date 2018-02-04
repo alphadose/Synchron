@@ -21,7 +21,7 @@ socket.on('execute', function(action){
     		break;
 
     	case "fetch":
-    		next();
+    		fetch();
     		break;
 
     	case "add":
