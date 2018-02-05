@@ -5,7 +5,6 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var Room = require('./room.js');
 
-app.set('views', __dirname + '/views');
 app.engine('ejs', require('express-ejs-extend'));
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public'));
@@ -68,15 +67,22 @@ io.on('connection', function(socket) {
 		}
 	});
 
-   socket.on('disconnect', function(){
+   socket.on('disconnect', async function(){
    	console.log(cluster);
    	console.log(members);
+   	if (typeof cluster[members[socket.id]] !== 'undefined') {
+
     cluster[members[socket.id]].strength--;
+
     if ( cluster[members[socket.id]].load > 0 )
     	cluster[members[socket.id]].load--;
+
     if ( cluster[members[socket.id]].strength === 0 )
-    	delete cluster[members[socket.id]];
-    delete members[socket.id];
+    	await delete cluster[members[socket.id]];
+	}
+
+	if (typeof members[socket.id] !== 'undefined')
+    	delete members[socket.id];
   });
 
   socket.on('function', function(data){

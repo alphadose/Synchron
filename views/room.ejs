@@ -2,8 +2,6 @@
 </video>-->
 <%- extend('player2') %>
 
-<script type="text/javascript" src="/js/peer.min.js"></script>
-<script type="text/javascript" src="/socket.io/socket.io.js"></script>
 <script type="text/javascript">
 	var url = "<%= roomId %>";
 	var socket = io();
@@ -16,6 +14,5 @@
 <script type="text/javascript" src = "/js/room.js"></script>
 <script type="text/javascript" src = "/js/connection.js"></script>
 <script type="text/javascript" src="/js/buffer-loader.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
 <script type="text/javascript" src="/js/audio-controller.js"></script>
 <script type="text/javascript" src="/js/player.js"></script>
