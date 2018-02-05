@@ -1,8 +1,5 @@
 var clipboard = new Clipboard('.btn');
 var roomId;
-clipboard.on('success', function(e) {
-	
-})
 
 socket.on('sendUrl', function(url) {
 	swal({
