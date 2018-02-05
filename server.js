@@ -6,16 +6,20 @@ var io = require('socket.io')(http);
 var Room = require('./room.js');
 
 app.set('views', __dirname + '/views');
+app.engine('ejs', require('express-ejs-extend'));
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public'));
 app.use(ejsLayouts);
 var config = require('./config/config.json');
+
 app.set('port', config.port||3000);
 http.listen(app.get('port'), function() {
-	console.log("http server listening at port " + app.get('port'));
+  console.log('Http magic is happening on port ' + app.get('port'));
 });
 
 var cluster = {};
+var members = {};
+
 app.get('/', function(req, res) {
 	res.render('home');
 });
@@ -42,15 +46,18 @@ io.on('connection', function(socket) {
 		
 		if (data.type == "admin") {
 			socket.on('peerId', function(id) {
+				members[socket.id] = socket.id;
 				room = new Room(socket.id, id);
 				cluster[socket.id] = room;
 				socket.join(room.name);
 				socket.emit('sendUrl', config.url + "/room/" + socket.id);
+				socket.emit('store', socket.id);
 			});
 		}
 
 		else if (data.type == "member") {
 			var roomId = data.url;
+			members[socket.id] = roomId;
 			room = cluster[roomId];
 			socket.join(roomId);
 			socket.on('peerId', function(id) {
@@ -59,5 +66,31 @@ io.on('connection', function(socket) {
 				room.addMember(id);
 			});
 		}
-	})
-})
+	});
+
+   socket.on('disconnect', function(){
+   	console.log(cluster);
+   	console.log(members);
+    cluster[members[socket.id]].strength--;
+    if ( cluster[members[socket.id]].load > 0 )
+    	cluster[members[socket.id]].load--;
+    if ( cluster[members[socket.id]].strength === 0 )
+    	delete cluster[members[socket.id]];
+    delete members[socket.id];
+  });
+
+  socket.on('function', function(data){
+    io.to(data.roomId).emit('execute', data.action);
+  });
+
+  socket.on('clear', function(roomId){
+    cluster[roomId].load = 0;
+  });
+
+  socket.on('standby', function(roomId){
+    cluster[roomId].load++;
+    if( cluster[roomId].load === cluster[roomId].strength )
+      io.to(roomId).emit('go');
+  });
+
+});

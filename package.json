@@ -4,8 +4,8 @@
   "description": "The Virtual karaoke with different scene to choose from when singing.",
   "main": "server.js",
   "scripts": {
-    "test": "start",
-    "start": "node server.js"
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
@@ -20,8 +20,10 @@
   "dependencies": {
     "ejs": "^2.5.7",
     "express": "^4.16.2",
+    "express-ejs-extend": "0.0.1",
     "express-ejs-layouts": "^2.3.1",
     "http": "0.0.0",
+    "socket.io": "^2.0.4",
     "sweetalert": "^2.1.0"
   }
 }

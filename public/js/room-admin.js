@@ -1,4 +1,5 @@
 var clipboard = new Clipboard('.btn');
+var roomId;
 clipboard.on('success', function(e) {
 	
 })
@@ -15,3 +16,9 @@ socket.on('sendUrl', function(url) {
 		$("#copy-btn").trigger("click");
 	});
 })
+
+socket.on('store', function(id){
+
+	roomId = id;
+
+});
