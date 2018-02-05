@@ -15,7 +15,7 @@ socket.on('sendUrl', function(url) {
 		$("#copy-btn").attr("data-clipboard-text", url);
 		$("#copy-btn").trigger("click");
 	});
-})
+});
 
 socket.on('store', function(id){
 
