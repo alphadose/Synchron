@@ -28,6 +28,10 @@ app.get('/create', function(req, res) {
 	res.render('room-admin');
 });
 
+app.get('/room', function(req, res) {
+	res.render('join', {cluster : cluster});
+})
+
 app.get('/room/:id', function(req,  res) {
 	var roomId = req.params.id;
 	if (cluster[roomId] !== undefined) {

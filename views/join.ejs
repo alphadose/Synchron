@@ -1,0 +1,12 @@
+<div id = "room-list">
+	<% for (room in cluster) {%>
+		<div class = "room">
+			<a href="/room/<%=cluster[room].name%>/">
+				<%= cluster[room].name %>
+			</a>
+		</div>
+	<% } %>
+</div>
+<script type="text/javascript">
+
+</script>
