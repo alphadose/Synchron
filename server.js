@@ -25,10 +25,18 @@ app.get('/', function(req, res) {
 });
 
 app.get('/create', function(req, res) {
+	res.render('credentials', { 'target' : 'create'});
+})
+
+app.get('/room', function(req, res) {
+	res.render('credentials', { 'target' : 'room'});
+})
+
+app.post('/create', function(req, res) {
 	res.render('room-admin');
 });
 
-app.get('/room', function(req, res) {
+app.post('/room', function(req, res) {
 	res.render('join', {cluster : cluster});
 })
 
@@ -90,13 +98,16 @@ io.on('connection', function(socket) {
   });
 
   socket.on('clear', function(roomId){
-    cluster[roomId].load = 0;
+  	if (cluster[roomId] !== undefined)
+    	cluster[roomId].load = 0;
   });
 
   socket.on('standby', function(roomId){
-    cluster[roomId].load++;
-    if( cluster[roomId].load === cluster[roomId].strength )
-      io.to(roomId).emit('go');
+  	if (cluster[roomId] !== undefined) {
+	    cluster[roomId].load++;
+	    if( cluster[roomId].load === cluster[roomId].strength )
+	      io.to(roomId).emit('go');
+	}
   });
 
 });
