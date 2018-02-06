@@ -1,3 +1,7 @@
+body {
+	background-color: darkslategray;
+}
+
 #menu-div {
 	font-size: 2em;
 	margin: auto;
