@@ -6,7 +6,9 @@ var io = require('socket.io')(http);
 var Room = require('./room.js');
 
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 app.set('views', __dirname + '/views');
 app.engine('ejs', require('express-ejs-extend'));
@@ -22,25 +24,34 @@ http.listen(app.get('port'), function() {
 
 var cluster = {};
 var members = {};
+var cookieName = "username";
 
 app.get('/', function(req, res) {
 	res.render('home');
 });
 
 app.get('/create', function(req, res) {
-	res.render('credentials', { 'target' : 'create'});
+	if (req.cookies[cookieName] !== undefined) {
+		return res.render('room-admin'); 
+	}
+	return res.render('credentials', { 'target' : 'create' });
 })
 
 app.get('/room', function(req, res) {
-	res.render('credentials', { 'target' : 'room'});
+	if (req.cookies[cookieName] !== undefined) {
+		return res.render('join')
+	}
+	res.render('credentials', { 'target' : 'room' });
 })
 
 app.post('/create', function(req, res) {
-	res.render('room-admin', { username : req.body.username });
+	res.cookie(cookieName, req.body.username, { maxAge: 900000, httpOnly: false });
+	return res.render('room-admin');
 });
 
 app.post('/room', function(req, res) {
-	res.render('join', {
+	res.cookie(cookieName, req.body.username, { maxAge: 900000, httpOnly: false });
+	return res.render('join', {
 		cluster : cluster,
 		username : req.body.username
 	});
@@ -48,11 +59,15 @@ app.post('/room', function(req, res) {
 
 app.get('/room/:id', function(req,  res) {
 	var roomId = req.params.id;
-	var username = req.params.username;
 	if (cluster[roomId] !== undefined) {
-		res.render('room', {
-			'roomId' : roomId
-		});
+		if (req.cookies[cookieName] !== undefined) {
+			return res.render('room', {
+				'roomId' : roomId
+			});
+		}
+		else {
+			return res.render('credentials' { target : 'room/' + roomId });
+		}
 	}
 	else {
 		return res.redirect('/');

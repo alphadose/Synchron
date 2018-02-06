@@ -1,18 +1,19 @@
 body {
 	background-color: #ddd;
 	font-family: 'Open Sans', sans-serif;
+	color: #444;
 }
 
 #topbar {
 	font-family: 'Open Sans', sans-serif;
 	font-size: 3em;
-	color: #ef2d5e;
+	color: black;
 }
 
 .container {
 	position: absolute;
-	margin-top: 2%;
-	margin-left: 2%;
+	margin-top: 2em;
+	margin-left: 2em;
 	width: 100%;
 }
 
@@ -22,13 +23,13 @@ body {
 
 #title {
 	font-size: 1.5em;
-	position: absolute;
-	left: 30%;
-	top: 40%;
+	position: relative;
+	margin-left: 2em;
+	margin-top: 2em;
 }
 
 #room-list {
 	position: relative;
-	left: 10%;
-	top: 5%;
+	margin-left: 6em;
+	margin-top: 1em;
 }
