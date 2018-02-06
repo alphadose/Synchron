@@ -44,7 +44,7 @@ input {
 
 .btn:hover {
 	transform: translateY(-2%);
-	box-shadow: 5px 5px #555;
+	box-shadow: 2px 2px #555;
 	background-color: white;
 	cursor: pointer;
 }
