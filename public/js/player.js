@@ -8,7 +8,7 @@ var playing = 0;
 var susresBtn = document.getElementById("pause");
 var timer;
 var originalTime;
-var pauseTime;
+var pauseTime = 0;
 
 function init() {
   // Fix up prefixing
@@ -169,12 +169,19 @@ function InvervalTimer(callback, interval) {
 }
 
 async function displaySubtitles(subs) {
+
   var t = new Date().getTime()/1000 - originalTime;
   var n = document.getElementById("subs");
+
   console.log(t);
+
   subtitles.forEach(function(element, index, array) {
+
     if( t >= element.start && t <= element.end ) {
+
         n.innerHTML = element.text;
+
     }
+    
   });
 }
