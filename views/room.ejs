@@ -6,10 +6,12 @@
 <script type="text/javascript" src="/socket.io/socket.io.js"></script>
 <script type="text/javascript">
 	var url = "<%= roomId %>";
+	var username = getCookie("username");
 	var socket = io();
 	socket.emit('type', {
 		type : 'member',
-		url : url
+		url : url,
+		username : username
 	});
 	var roomId = url;
 </script>

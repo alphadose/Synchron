@@ -7,7 +7,6 @@ var mediaDiv = '<audio class = "media" controls autoplay ';
 var numOfPeers = 0;
 
 peer.on('open', async function(id) {
-  console.log(socket.id);
   peerId = id;
   await getStream(id);
 })

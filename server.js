@@ -39,7 +39,10 @@ app.get('/create', function(req, res) {
 
 app.get('/room', function(req, res) {
 	if (req.cookies[cookieName] !== undefined) {
-		return res.render('join')
+		return res.render('join', {
+			cluster : cluster,
+			username : req.cookies[cookieName]
+		})
 	}
 	res.render('credentials', { 'target' : 'room' });
 })
@@ -57,7 +60,7 @@ app.post('/room', function(req, res) {
 	});
 })
 
-app.get('/room/:id', function(req,  res) {
+app.get('/room/:id', function(req, res) {
 	var roomId = req.params.id;
 	if (cluster[roomId] !== undefined) {
 		if (req.cookies[cookieName] !== undefined) {
@@ -66,8 +69,21 @@ app.get('/room/:id', function(req,  res) {
 			});
 		}
 		else {
-			return res.render('credentials' { target : 'room/' + roomId });
+			return res.render('credentials', { target : 'room/' + roomId });
 		}
+	}
+	else {
+		return res.redirect('/');
+	}
+})
+
+app.post('/room/:id', function(req,  res) {
+	res.cookie(cookieName, req.body.username, { maxAge: 900000, httpOnly: false });
+	var roomId = req.params.id;
+	if (cluster[roomId] !== undefined) {
+			return res.render('room', {
+				'roomId' : roomId
+			});
 	}
 	else {
 		return res.redirect('/');
@@ -81,7 +97,7 @@ io.on('connection', function(socket) {
 		if (data.type == "admin") {
 			socket.on('peerId', function(id) {
 				members[socket.id] = socket.id;
-				room = new Room(socket.id, id);
+				room = new Room(socket.id, id, data.username);
 				cluster[socket.id] = room;
 				socket.join(room.name);
 				socket.emit('sendUrl', config.url + "/room/" + socket.id);
@@ -97,7 +113,7 @@ io.on('connection', function(socket) {
 			socket.on('peerId', function(id) {
 				console.log("emitted by " + id);
 				socket.broadcast.to(room.name).emit('addPeer', id);
-				room.addMember(id);
+				room.addMember(id, data.username);
 			});
 		}
 	});
