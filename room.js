@@ -6,7 +6,7 @@ function Room(socketId, peerId, username) {
 	this.members[peerId] = username;
 	this.load = 0;
 	this.adminHandle = username;
-	this.roomHandle = username.toUpperCase() + "'S ROOM";
+	this.roomHandle = username.toUpperCase() + "'s ROOM";
 }
 
 Room.prototype.addMember = function(id, username) {
