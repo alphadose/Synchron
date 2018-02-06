@@ -11,11 +11,10 @@
 
 	<div id = "room-list">
 		<% for (room in cluster) {%>
+		<a href="/room/<%=cluster[room].name%>/">
 			<div class = "room">
 				<div id = "name">
-					<a href="/room/<%=cluster[room].name%>/">
-						<span id = "room-url"><%= cluster[room].roomHandle %></span>
-					</a>
+					<span id = "room-url"><%= cluster[room].roomHandle %></span>
 				</div>
 				<div id = "strength">
 					No. of members : <%= cluster[room].strength %>
@@ -31,6 +30,7 @@
 					</ul>
 				</div>
 			</div>
+		</a>
 		<% } %>
 	</div>
 </div>
