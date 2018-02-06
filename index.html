@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#fff78c">
+    <title>A-Saturday-Night</title>
+    <meta name="description" content="A WebVR dancing experience using A-Frame by Mozilla VR.">
+    <link rel="stylesheet" href="css/main.css">
+    <script src="vendor/aframe.min.js"></script>
+    <script src="vendor/aframe-motion-capture-components.js"></script>
+    <script src="vendor/CCapture.min.js"></script>
+    <link rel="manifest" href="manifest.webmanifest">
+
+
+    <meta property="og:url" content="https://aframe.io/a-saturday-night/">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Check out my moves on aframe.io/a-saturday-night!">
+    <meta property="og:description" content="A-Saturday-Night from Mozilla VR! Share your dance with the world in VR.">
+    <meta property="og:image" id="facebookimg" content="https://aframe.io/a-saturday-night/socialimg.jpg">
+
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <meta name="application-name" content="A-Saturday-Night">
+    <meta name="msapplication-TileColor" content="#fff78c">
+    <meta name="msapplication-TileImage" content="mstile-144x144.png">
+
+    <script src='/src/components/states/replay.js' > </script>
+
+<script src='/src/components/proxy-event.js' > </script>
+
+<script src='/src/components/game-state.js' > </script>
+<script src='/src/components/discofloor.js' > </script>
+<script src='/src/components/spotlight.js' > </script>
+<script src='/src/components/roomcolor.js' > </script>
+
+<script src='/src/components/states/instructions.js' > </script>
+
+  </head>
+  <body>
+    <!-- <div class="instructions-overlay" id="instructions"> -->
+      <div class="instructions" class="hide">
+        <button class="start-button"><span>Loading...</span></button>
+      </div>
+
+    <a-scene uploadcare="publicKey: 85ed3c25d99e387316bd" game-state
+             avatar-recorder="spectatorPlay: true; spectatorPosition: 0 0 0; localStorage: false; saveFile: false"
+             auto-enter-vr="enabled: false">
+
+      <a-assets timeout="8000">
+        <img src="assets/room/tv.png">
+        <a-asset-item id="set-obj" src="assets/room/set.gltf"></a-asset-item>
+        <img src="assets/room/set.jpg">
+        <a-asset-item id="floor-obj" src="assets/room/floor.gltf"></a-asset-item>
+        <img id="flooroff-mtl" src="assets/room/flooroff.png">
+        <a-asset-item id="spotlight-obj" src="assets/room/spotlight.gltf"></a-asset-item>
+        <img id="spotlight-img" src="assets/room/spotlight.png">
+      </a-assets>
+      <a-entity id="cameraRig" rotation="0 0 0" position="0 1 0">
+        <a-entity id="avatarHead"
+                  camera="userHeight: 0"
+                  wasd-controls look-controls
+                  visible="false"></a-entity>
+        <!-- Avatar Hands -->
+        <a-entity id="leftHand" visible="false"></a-entity>
+        <a-entity id="rightHand" visible="false"></a-entity>
+      </a-entity>
+      <!-- Texts -->
+      <a-entity id="counter0Text" visible="false" position="0.87 2.18 -2.42" rotation="23.78 -27.40 0" text="font: assets/asaturdaynight.fnt; color: #fffd6a; align:center;width:3.8"></a-entity>
+      <a-entity id="counter1Text" visible="false" position="-1.66 2.18 2.16" rotation="23.78 147.24 0" text="font: assets/asaturdaynight.fnt; color: #fffd6a; align:center;width:3.8"></a-entity>
+      <a-entity id="counter0" visible="false" position="0.87 2.18 -2.42" rotation="23.78 -27.40 0" text="font: assets/asaturdaynight.fnt; color: #fffd6a; align:center;width:7.4"></a-entity>
+      <a-entity id="counter1" visible="false" position="-1.66 2.18 2.16" rotation="23.78 147.24 0" text="font: assets/asaturdaynight.fnt; color: #fffd6a; align:center;width:7.4"></a-entity>
+      <a-entity id="centeredText" text="font: assets/asaturdaynight.fnt; align: center; opacity: 1; width: 6.22;color:#fffdb3;" visible="false" position="0 1.4 -1"></a-entity>
+      <a-entity id="collectText" visible="false">
+        <a-entity text="font: assets/asaturdaynight.fnt; align: center; opacity: 1; width: 3.3;color:#fffdb3;value:Copy your dance URL and share!" position="-1.4 1.25 0" rotation="0 90 0"></a-entity>
+        <a-entity text="font: assets/asaturdaynight.fnt; align: center; opacity: 1; width: 3.3;color:#fffdb3;value:Copy your dance URL and share!" position="1.6 1.25 0" rotation="0 -90 0"></a-entity>
+      </a-entity>
+
+
+      <a-entity id="backText" text="font: assets/asaturdaynight.fnt; align: center; opacity: 1; width: 2.8; color:#fffdb3; value:( Turn around )" visible="false" position="0 1.4 2.19" rotation="0 180 0"></a-entity>
+
+      <!-- Lights -->
+      <!-- spotlights -->
+      <a-entity id="spot1" proxy-event="event: dancing" gltf-model="#spotlight-obj" spotlight="color:#ab7121" position="-3.14 2.38 2.7" rotation="44 -38 0" scale="0 0 0">
+        <a-animation attribute="scale" begin="dancing" to="1 1 1" dur="1000" easing="ease-out-elastic"></a-animation>
+      </a-entity>
+      <a-entity id="spot2" proxy-event="event: dancing" gltf-model="#spotlight-obj" spotlight="color:#205eff" position="2.7 2.29 2.7" rotation="50 53 0" scale="0 0 0">
+        <a-animation attribute="scale" begin="dancing" to="1 1 1" dur="1000" easing="ease-out-elastic"></a-animation>
+      </a-entity>
+      <a-entity id="spot3" proxy-event="event: dancing" gltf-model="#spotlight-obj" spotlight="color:#a431f0" position="-3 2.38 -2.5" rotation="-52 60 -13" scale="0 0 0">
+        <a-animation attribute="scale" begin="dancing" to="1 1 1" dur="1000" easing="ease-out-elastic"></a-animation>
+      </a-entity>
+      <a-entity id="spot4" proxy-event="event: dancing" gltf-model="#spotlight-obj" spotlight="color:#f130cf" position="3 2.38 -1.19" rotation="-50 -60 0" scale="0 0 0">
+        <a-animation attribute="scale" begin="dancing" to="1 1 1" dur="1000" easing="ease-out-elastic"></a-animation>
+      </a-entity>
+
+
+      <!-- room, floor and TV sets -->
+      <a-entity id="room" gltf-model="#set-obj" proxy-event="event: dancing" roomcolor="#999" >
+        <a-entity sound="loop: true" position="0 2 -1"></a-entity>
+        <a-animation attribute="roomcolor" begin="dancing" to="#FFF" dur="1000" easing="ease-out-elastic"></a-animation>
+      </a-entity>
+      <a-entity id="floor" gltf-model="#floor-obj" material="shader:flat;src:#floor-img" discofloor position="0 -0.009 0" rotation="0 -90 0"></a-entity>
+      <a-image src="#flooroff-mtl" material="repeat: 8 8" rotation="-90 0 0" scale="1.99 1.99 1" position="0 -0.01 0"></a-image>
+      <a-entity id="tv1" gltf-model="#tv-obj" position="-1.66 2.15 2.18" rotation="0 -33.3 0"></a-entity>
+      <a-entity id="tv2" gltf-model="#tv-obj" position="0.87 2.15 -2.44" rotation="0 151.8 0"></a-entity>
+    </a-scene>
+  </body>
+</html>
