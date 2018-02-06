@@ -1,6 +1,9 @@
 body {
-	background-color: #ef2d5e;
+	background-color: #ddd;
 	margin: 0;
 	color: black;
 	overflow-x: hidden;
+	background-image: url('/assets/bg.jpg');
+	background-repeat: no-repeat;
+	background-size: cover;
 }

@@ -1,5 +1,13 @@
 body {
 	background-color: darkslategray;
+	font-family: 'Montserrat', sans-serif;
+}
+
+#description {
+	margin-top: 50px;
+	font-size: 1.5em;
+	text-align: center;
+	color: #ccc;
 }
 
 #menu-div {
@@ -17,14 +25,15 @@ body {
 input {
 	font-family: 'Montserrat', sans-serif;
 	color: black;
-	background-color: #7BC8A4;
+	background-color: #e43b5e;
+	color: white;
 	border: none;
 	width: 10em;
 }
 
 .container {
 	position: absolute;	
-	top: 20%;
+	top: 10%;
 	width: 100%;
 
 }
@@ -43,12 +52,12 @@ input {
 .btn {
 	padding-top: 10px;
 	padding-bottom: 10px;
-	border-radius: 5px;
+	border-radius: 20px;
 }
 
 .btn:hover {
 	transform: translateY(-2%);
 	box-shadow: 2px 2px #555;
-	background-color: white;
+	opacity: 0.5;
 	cursor: pointer;
 }
