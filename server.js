@@ -73,8 +73,6 @@ io.on('connection', function(socket) {
 	});
 
    socket.on('disconnect', function(){
-   	console.log(cluster);
-   	console.log(members);
     cluster[members[socket.id]].strength--;
     if ( cluster[members[socket.id]].load > 0 )
     	cluster[members[socket.id]].load--;
