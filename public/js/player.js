@@ -46,6 +46,12 @@ async function fetch() {
     synchronise
   );
 
+  document.getElementById("fixed-snackbar").setAttribute("text", {
+    value: ""
+  });
+
+  toast("Playing "+queue[0]);
+
   if (typeof timer !== 'undefined')
     timer.clear();
 
@@ -61,7 +67,7 @@ async function fetch() {
 async function add(song='example') {
 
 	await queue.push(song);
-	return toast("Added");
+	return toast("Added "+song+" to Queue");
 
 }
 
@@ -78,6 +84,7 @@ async function next() {
 
   //Change this
   //susresBtn.textContent = 'Pause';
+  toast("Playing next");
   await fetch();
 
   if (context.state === 'suspended')
@@ -115,6 +122,7 @@ async function pauseres() {
     context.suspend().then(function () {
       if (typeof timer !== 'undefined')
         timer.pause();
+      toast("Paused");
       if (typeof pauseTime !== 'undefined')
         pauseTime = new Date().getTime()/1000;
       //susresBtn.textContent = 'Resume'; //Change this
@@ -125,6 +133,7 @@ async function pauseres() {
     context.resume().then(function () {
       if (typeof timer !== 'undefined')
         timer.resume();
+      toast("Resuming");
       if (typeof originalTime !== 'undefined' && typeof pauseTime !== 'undefined')
         originalTime+= (new Date().getTime()/1000 - pauseTime);
       //susresBtn.textContent = 'Pause';//Change this
