@@ -88,16 +88,25 @@ async function next() {
 
   socket.emit('clear', roomId);
 
-  source.onended = null;
+  if( typeof source !== 'undefined')
+    source.onended = null;
 
   if (playing === 1) {
     source.stop();
     playing = 0;
   }
 
+  toast("Score : " + Math.round(10*Math.random()) + "/10", 4000, "fixed-score");
   //Change this
   //susresBtn.textContent = 'Pause';
-  toast("Playing next");
+  document.getElementById("fixed-snackbar").setAttribute("text", {
+    value: ""
+  });
+
+  if (typeof timer !== 'undefined')
+    timer.clear();
+
+  setTimeout(function(){toast("Playing next");},3000);
   await fetch();
 
   if (context.state === 'suspended')
@@ -154,14 +163,14 @@ async function pauseres() {
   }
 }
 
-function toast(message, timeout = 2000) {
+function toast(message, timeout = 2000, defaultTag = "fixed-snackbar") {
 
-  document.getElementById("fixed-snackbar").setAttribute("text", {
+  document.getElementById(defaultTag).setAttribute("text", {
     value: message
   });
 
   setTimeout(function(){        
-   document.getElementById("fixed-snackbar").setAttribute("text", {
+   document.getElementById(defaultTag).setAttribute("text", {
     value: '' })}, timeout);
 
 }
@@ -206,7 +215,7 @@ function InvervalTimer(callback, interval) {
   state = 1;
 }
 
-async function displaySubtitles(subs) {
+async function displaySubtitles (subs) {
 
   var t = new Date().getTime() / 1000 - originalTime;
   var n = document.getElementById("subs");
