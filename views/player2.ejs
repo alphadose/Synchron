@@ -150,8 +150,8 @@
     sceneEl.appendChild(entityEl);
 
 
-
-  for (i = 0; i < 6; i++) {
+    let songslistforplaying = ["example", "demon", "bloodstream", "blank"];
+  for (i = 0; i < 4; i++) {
     let entityEl = document.createElement('a-entity');
     entityEl.setAttribute('geometry', {
       primitive: 'box',
@@ -160,10 +160,10 @@
       depth: 0,
     });
     entityEl.setAttribute('material', 'color', '#101010');
-    entityEl.setAttribute('id', 'texts' + i);
+    entityEl.setAttribute('id', songslistforplaying[i]);
     entityEl.setAttribute('playable-song', '' );
     entityEl.setAttribute('position', { x: 0, y: 1.6 - .8 * i, z: .01 });
-    entityEl.setAttribute('text', { value: 'texts' + i, align: 'center', width: 6 });
+    entityEl.setAttribute('text', { value: songslistforplaying[i], align: 'center', width: 6 });
     sceneEl.appendChild(entityEl);
 }
 let queueEl = document.querySelector('#aframe-queue');
