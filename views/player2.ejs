@@ -19,6 +19,8 @@
   <script src='/components/spotlight.js'> </script>
   <script src='/components/roomcolor.js'> </script>
   <script src='/components/listener.js'> </script>
+  <script src='/components/playable-song.js'> </script>
+  <script src='/components/emit-close.js'> </script>
 
 </head>
 
@@ -43,31 +45,31 @@
     <img id="spotlight-img" src="/assets/room/spotlight.png">
   </a-/assets>
 
-  <a-plane scale=".5 .3 1" id="song-tv" width="6.2" height="5.8" color="#4B0082" rotation="0 0 0" position="-.5 1.8 -3.76">
-    <a-plane width="6" height="5.5" color="#8A2BE2" rotation="0 0 0" position="0.01 0 .01">
+  <a-plane scale=".5 .3 1" id="song-tv" emit-close width="6.2" height="7.2" color="black" rotation="0 0 0" position="-.5 1.8 -3.76">
+    <a-plane width="6" height="6.5" color="#404040" rotation="0 0 0" position="0.01 0 .01">
 
-      <a-plane width=".9" height=".6" position="-1.9 2 .01" option-select-button="type: play" rotation="0 0 0" color="#4B0082">
-        <a-entity bmfont-text="color: #000000; text: PLAY;" position="-.4 -.1 0" scale="2 2 2">
+      <a-plane width=".9" height=".6" position="-1.9 2.8 .01" option-select-button="type: play" rotation="0 0 0" color="black">
+        <a-entity bmfont-text="color: white; text: PLAY;" position="-.4 -.1 0" scale="2 2 2">
         </a-entity>
       </a-plane>
-      <a-plane width=".9" height=".6" position="-.65 2 .01" option-select-button="type: toggle" rotation="0 0 0" color="#4B0082">
-        <a-entity id="aframe-pauseBtn" bmfont-text="color: #000000; text: PAUSE;" position="-.4 -.1 0" scale="1.8 1.8 1.8">
-        </a-entity>
-      </a-plane>
-
-      <a-plane width=".9" height=".6" position=".65 2 .01" option-select-button="type: next" rotation="0 0 0" color="#4B0082">
-        <a-entity bmfont-text="color: #000000; text: NEXT;" position="-.4 -.1 0" scale="2 2 2">
-        </a-entity>
-      </a-plane>
-      <a-plane width=".9" height=".6" position="1.9 2 .01" option-select-button="type: list" rotation="0 0 0" color="#4B0082">
-        <a-entity bmfont-text="color: #000000; text: LIST;" position="-.4 -.1 0" scale="2 2 2">
+      <a-plane width=".9" height=".6" position="-.65 2.8 .01" option-select-button="type: toggle" rotation="0 0 0" color="black">
+        <a-entity id="aframe-pauseBtn" bmfont-text="color: white; text: PAUSE;" position="-.4 -.1 0" scale="1.8 1.8 1.8">
         </a-entity>
       </a-plane>
 
-      <a-plane id="aframe-playlist" visible="false" width="2.5" height="3.8" position="-1.4 -.6 .01" option-select-button="type: playlist"
-        rotation="0 0 0" color="#4B0082"></a-plane>
-      <a-plane id="aframe-queue" visible="false" width="2.5" height="3.8" position="+1.4 -.6 .01" option-select-button="type: queue"
-        rotation="0 0 0" color="#4B0082"></a-plane>
+      <a-plane width=".9" height=".6" position=".65 2.8 .01" option-select-button="type: next" rotation="0 0 0" color="black">
+        <a-entity bmfont-text="color: white; text: NEXT;" position="-.4 -.1 0" scale="2 2 2">
+        </a-entity>
+      </a-plane>
+      <a-plane width=".9" height=".6" position="1.9 2.8 .01" option-select-button="type: list" rotation="0 0 0" color="black">
+        <a-entity bmfont-text="color: white; text: LIST;" position="-.4 -.1 0" scale="2 2 2">
+        </a-entity>
+      </a-plane>
+
+      <a-plane id="aframe-playlist" visible="false" width="2.5" height="5.6" position="-1.4 -.4 .01" option-select-button="type: playlist"
+        rotation="0 0 0" color="#606060"></a-plane>
+      <a-plane id="aframe-queue" visible="false" width="2.5" height="5.6" position="+1.4 -.4 .01" option-select-button="type: queue"
+        rotation="0 0 0" color="#606060"></a-plane>
     </a-plane>
   </a-plane>
 
@@ -133,4 +135,48 @@
   </a-camera>
 </a-scene>
 <div id="snackbar">Some text some message..</div>
+<script>
+  let sceneEl = document.querySelector('#aframe-playlist');
+    let entityEl = document.createElement('a-entity');
+    entityEl.setAttribute('geometry', {
+      primitive: 'box',
+      height: .5,
+      width: 2,
+      depth: 0,
+    });
+    entityEl.setAttribute('material', 'color', 'black');
+    entityEl.setAttribute('position', { x: 0, y: 2.4 , z: .01 });
+    entityEl.setAttribute('text', { value: 'SONGS', align: 'center', width: 6 });
+    sceneEl.appendChild(entityEl);
+
+
+
+  for (i = 0; i < 6; i++) {
+    let entityEl = document.createElement('a-entity');
+    entityEl.setAttribute('geometry', {
+      primitive: 'box',
+      height: .5,
+      width: 2,
+      depth: 0,
+    });
+    entityEl.setAttribute('material', 'color', '#101010');
+    entityEl.setAttribute('id', 'texts' + i);
+    entityEl.setAttribute('playable-song', '' );
+    entityEl.setAttribute('position', { x: 0, y: 1.6 - .8 * i, z: .01 });
+    entityEl.setAttribute('text', { value: 'texts' + i, align: 'center', width: 6 });
+    sceneEl.appendChild(entityEl);
+}
+let queueEl = document.querySelector('#aframe-queue');
+    let addedEl = document.createElement('a-entity');
+    addedEl.setAttribute('geometry', {
+      primitive: 'box',
+      height: .5,
+      width: 2,
+      depth: 0,
+    });
+    addedEl.setAttribute('material', 'color', 'black');
+    addedEl.setAttribute('position', { x: 0, y: 2.4 , z: .01 });
+    addedEl.setAttribute('text', { value: 'PLAYLIST', align: 'center', width: 6 });
+    queueEl.appendChild(addedEl);
+</script>
 <%- content %>

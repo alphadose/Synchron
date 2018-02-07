@@ -10,9 +10,8 @@ AFRAME.registerComponent('option-select-button', {
           console.log(data)
         if(data.type == "list"){
             console.log(data.type)
-          let visible = (document.getElementById("aframe-playlist").getAttribute("visible") == false) ? "true" : "false";
-            document.getElementById("aframe-playlist").setAttribute("visible",  visible );
-            document.getElementById("aframe-queue").setAttribute("visible",  visible );
+            document.getElementById("aframe-playlist").setAttribute("visible",  true );
+            document.getElementById("aframe-queue").setAttribute("visible",  true );
         }
 
         switch(data.type) {
