@@ -5,6 +5,7 @@
   <script src="/vendor/aframe.min.js"></script>
   <script src="/vendor/aframe-motion-capture-components.js"></script>
   <script src="/vendor/CCapture.min.js"></script>
+  <script src="/vendor/aframe-bmfont-text-component.min.js"></script>
 
   <script src='/components/states/replay.js'> </script>
   <script src='/components/states/instructions.js'> </script>
@@ -39,13 +40,27 @@
     <img id="spotlight-img" src="assets/room/spotlight.png">
   </a-assets>
 
-
   <a-plane scale=".5 .3 1" id="song-tv" width="6.2" height="5.8" color="#4B0082" rotation="0 0 0" position="-.5 1.8 -3.76">
     <a-plane width="6" height="5.5" color="#8A2BE2" rotation="0 0 0" position="0.01 0 .01">
-      <a-plane text="value: PLAY" width=".9" height=".6" position="-1.9 2 .01" option-select-button="type: play" rotation="0 0 0" color="#4B0082"></a-plane>
-      <a-plane text="value: PAUSE" width=".9" height=".6" position="-.65 2 .01" option-select-button="type: toggle" rotation="0 0 0" color="#4B0082"></a-plane>
-      <a-plane text="value: NEXT" width=".9" height=".6" position=".65 2 .01" option-select-button="type: next" rotation="0 0 0" color="#4B0082"></a-plane>
-      <a-plane text="value: LIST" width=".9" height=".6" position="1.9 2 .01" option-select-button="type: list" rotation="0 0 0" color="#4B0082"></a-plane>
+
+      <a-plane width=".9" height=".6" position="-1.9 2 .01" option-select-button="type: play" rotation="0 0 0" color="#4B0082">
+        <a-entity bmfont-text="color: #000000; text: PLAY;" position="-.4 -.1 0" scale="2 2 2">
+        </a-entity>
+      </a-plane>
+      <a-plane width=".9" height=".6" position="-.65 2 .01" option-select-button="type: toggle" rotation="0 0 0" color="#4B0082">
+        <a-entity bmfont-text="color: #000000; text: PAUSE;" position="-.4 -.1 0" scale="1.8 1.8 1.8">
+        </a-entity>
+      </a-plane>
+
+      <a-plane width=".9" height=".6" position=".65 2 .01" option-select-button="type: next" rotation="0 0 0" color="#4B0082">
+        <a-entity bmfont-text="color: #000000; text: NEXT;" position="-.4 -.1 0" scale="2 2 2">
+        </a-entity>
+      </a-plane>
+      <a-plane width=".9" height=".6" position="1.9 2 .01" option-select-button="type: list" rotation="0 0 0" color="#4B0082">
+        <a-entity bmfont-text="color: #000000; text: LIST;" position="-.4 -.1 0" scale="2 2 2">
+        </a-entity>
+      </a-plane>
+
       <a-plane id="aframe-playlist" visible="false" width="2.5" height="3.8" position="-1.4 -.6 .01" option-select-button="type: playlist"
         rotation="0 0 0" color="#4B0082"></a-plane>
       <a-plane id="aframe-queue" visible="false" width="2.5" height="3.8" position="+1.4 -.6 .01" option-select-button="type: queue"
@@ -112,8 +127,17 @@
 
   <a-camera>
     <a-cursor position="0 0 -1" geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03" material="color: black; shader: flat">
+      <a-entity position=".5 -.7 -.01" id="subs" text="width: 2; color: white">
+      </a-entity>
     </a-cursor>
   </a-camera>
 </a-scene>
-
+<script>
+  setInterval(function () {
+    console.log(document.getElementById("subs").getAttribute("text"));
+    document.getElementById("subs").setAttribute("text", {
+      value: Math.random().toString()
+    })
+  }, 1000);
+</script>
 <%- content %>
