@@ -1,5 +1,5 @@
 <head>
-  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="/css/main.css">
 
   <script src="/vendor/aframe.min.js"></script>
   <script src="/vendor/aframe-motion-capture-components.js"></script>
@@ -33,15 +33,15 @@
 
 
 
-  <a-assets timeout="8000">
-    <img src="assets/room/tv.png">
-    <a-asset-item id="set-obj" src="assets/room/set.gltf"></a-asset-item>
-    <img src="assets/room/set.jpg">
-    <a-asset-item id="floor-obj" src="assets/room/floor.gltf"></a-asset-item>
-    <img id="flooroff-mtl" src="assets/room/flooroff.png">
-    <a-asset-item id="spotlight-obj" src="assets/room/spotlight.gltf"></a-asset-item>
-    <img id="spotlight-img" src="assets/room/spotlight.png">
-  </a-assets>
+  <a-/assets timeout="8000">
+    <img src="/assets/room/tv.png">
+    <a-asset-item id="set-obj" src="/assets/room/set.gltf"></a-asset-item>
+    <img src="/assets/room/set.jpg">
+    <a-asset-item id="floor-obj" src="/assets/room/floor.gltf"></a-asset-item>
+    <img id="flooroff-mtl" src="/assets/room/flooroff.png">
+    <a-asset-item id="spotlight-obj" src="/assets/room/spotlight.gltf"></a-asset-item>
+    <img id="spotlight-img" src="/assets/room/spotlight.png">
+  </a-/assets>
 
   <a-plane scale=".5 .3 1" id="song-tv" width="6.2" height="5.8" color="#4B0082" rotation="0 0 0" position="-.5 1.8 -3.76">
     <a-plane width="6" height="5.5" color="#8A2BE2" rotation="0 0 0" position="0.01 0 .01">
@@ -71,30 +71,25 @@
     </a-plane>
   </a-plane>
 
-
-
-
-
-
   <a-entity id="cameraRig" rotation="0 0 0" position="0 1 0">
     <a-entity id="avatarHead" camera="userHeight: 0" wasd-controls look-controls visible="false"></a-entity>
   </a-entity>
   <!-- Texts -->
-  <a-entity id="counter0Text" visible="false" position="0.87 2.18 -2.42" rotation="23.78 -27.40 0" text="font: assets/asaturdaynight.fnt; color: #fffd6a; align:center;width:3.8"></a-entity>
-  <a-entity id="counter1Text" visible="false" position="-1.66 2.18 2.16" rotation="23.78 147.24 0" text="font: assets/asaturdaynight.fnt; color: #fffd6a; align:center;width:3.8"></a-entity>
-  <a-entity id="counter0" visible="false" position="0.87 2.18 -2.42" rotation="23.78 -27.40 0" text="font: assets/asaturdaynight.fnt; color: #fffd6a; align:center;width:7.4"></a-entity>
-  <a-entity id="counter1" visible="false" position="-1.66 2.18 2.16" rotation="23.78 147.24 0" text="font: assets/asaturdaynight.fnt; color: #fffd6a; align:center;width:7.4"></a-entity>
-  <a-entity id="centeredText" text="font: assets/asaturdaynight.fnt; align: center; opacity: 1; width: 6.22;color:#fffdb3;"
+  <a-entity id="counter0Text" visible="false" position="0.87 2.18 -2.42" rotation="23.78 -27.40 0" text="font: /assets/asaturdaynight.fnt; color: #fffd6a; align:center;width:3.8"></a-entity>
+  <a-entity id="counter1Text" visible="false" position="-1.66 2.18 2.16" rotation="23.78 147.24 0" text="font: /assets/asaturdaynight.fnt; color: #fffd6a; align:center;width:3.8"></a-entity>
+  <a-entity id="counter0" visible="false" position="0.87 2.18 -2.42" rotation="23.78 -27.40 0" text="font: /assets/asaturdaynight.fnt; color: #fffd6a; align:center;width:7.4"></a-entity>
+  <a-entity id="counter1" visible="false" position="-1.66 2.18 2.16" rotation="23.78 147.24 0" text="font: /assets/asaturdaynight.fnt; color: #fffd6a; align:center;width:7.4"></a-entity>
+  <a-entity id="centeredText" text="font: /assets/asaturdaynight.fnt; align: center; opacity: 1; width: 6.22;color:#fffdb3;"
     visible="false" position="0 1.4 -1"></a-entity>
   <a-entity id="collectText" visible="false">
-    <a-entity text="font: assets/asaturdaynight.fnt; align: center; opacity: 1; width: 3.3;color:#fffdb3;value:Copy your dance URL and share!"
+    <a-entity text="font: /assets/asaturdaynight.fnt; align: center; opacity: 1; width: 3.3;color:#fffdb3;value:Copy your dance URL and share!"
       position="-1.4 1.25 0" rotation="0 90 0"></a-entity>
-    <a-entity text="font: assets/asaturdaynight.fnt; align: center; opacity: 1; width: 3.3;color:#fffdb3;value:Copy your dance URL and share!"
+    <a-entity text="font: /assets/asaturdaynight.fnt; align: center; opacity: 1; width: 3.3;color:#fffdb3;value:Copy your dance URL and share!"
       position="1.6 1.25 0" rotation="0 -90 0"></a-entity>
   </a-entity>
 
 
-  <a-entity id="backText" text="font: assets/asaturdaynight.fnt; align: center; opacity: 1; width: 2.8; color:#fffdb3; value:( Turn around )"
+  <a-entity id="backText" text="font: /assets/asaturdaynight.fnt; align: center; opacity: 1; width: 2.8; color:#fffdb3; value:( Turn around )"
     visible="false" position="0 1.4 2.19" rotation="0 180 0"></a-entity>
 
   <!-- Lights -->
