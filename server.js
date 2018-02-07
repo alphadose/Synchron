@@ -138,7 +138,8 @@ io.on('connection', function(socket) {
   });
 
   socket.on('function', function(data){
-    io.to(data.roomId).emit('execute', data.action);
+    io.to(data.roomId).emit('execute', { action : data.action,
+    									 song : data.song } );
   });
 
   socket.on('clear', function(roomId){
