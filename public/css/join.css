@@ -1,0 +1,75 @@
+body {
+	font-family: 'Open Sans', sans-serif;
+	color: #ddd;
+	height: 100%;
+	overflow-y: auto;
+	background-image: none;
+}
+
+#topbar {
+	font-family: 'Open Sans', sans-serif;
+	font-size: 4em;
+	color: #ddd;
+	margin-left: 0.5em;
+}
+
+.container {
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	position: absolute;
+	background-image: url('/assets/bg.jpg');
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+#username {
+	color: #ef2d5e;
+}
+
+#title {
+	font-size: 2em;
+	position: relative;
+	margin-left: 2em;
+	margin-top: 1em;
+	margin-bottom: 1em;
+}
+
+#room-list {
+	position: relative;
+	margin-left: 2em;
+	margin-right: 6em;
+	display: flex;
+	padding: 1em;
+	flex-wrap: wrap;
+}
+
+a {
+	text-decoration: none;
+}
+
+#room-url {
+	font-size: 1.5em;
+	color: #fff78c;
+}
+
+.room {
+	padding: 1em;
+	margin: 1em;
+	color: #aaa;
+	border: solid 1px;
+	border-radius: 10px;
+	width: 30vw;
+	height: 30vh;
+	overflow-x: auto;
+	overflow-y: auto;
+}
+
+.room:hover {
+	transform: translate(-1px, -1px);
+}
+
+ul {
+	margin-top: 0;
+}

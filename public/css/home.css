@@ -1,0 +1,61 @@
+body {
+	background-color: darkslategray;
+	font-family: 'Montserrat', sans-serif;
+}
+
+#description {
+	margin-top: 50px;
+	font-size: 1.5em;
+	text-align: center;
+	color: #ccc;
+}
+
+#menu-div {
+	font-size: 2em;
+	margin: auto;
+	width: 10em;
+	margin-top: 50px;
+}
+
+.menu-item {
+	font-size: 1em;
+	margin: auto;
+}
+
+input {
+	font-family: 'Montserrat', sans-serif;
+	color: black;
+	background-color: #e43b5e;
+	color: white;
+	border: none;
+	width: 10em;
+}
+
+.container {
+	position: absolute;	
+	top: 10%;
+	width: 100%;
+
+}
+
+#title {
+	font-family: 'Rammetto One', cursive;
+	font-size: 4em;
+	margin: auto;
+	background-color: #FFC65D;
+	width: 7em;
+	text-align: center;
+	padding: 10px;
+	box-shadow: 10px 10px;
+}
+
+.btn {
+	padding-top: 10px;
+	padding-bottom: 10px;
+	border-radius: 20px;
+}
+
+.btn:hover {
+	transform: translateY(-2%);
+	cursor: pointer;
+}

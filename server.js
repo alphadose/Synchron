@@ -5,6 +5,11 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var Room = require('./room.js');
 
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
+
 app.set('views', __dirname + '/views');
 app.engine('ejs', require('express-ejs-extend'));
 app.set('view engine', 'ejs');
@@ -19,21 +24,66 @@ http.listen(app.get('port'), function() {
 
 var cluster = {};
 var members = {};
+var cookieName = "username";
 
 app.get('/', function(req, res) {
 	res.render('home');
 });
 
 app.get('/create', function(req, res) {
-	res.render('room-admin');
+	if (req.cookies[cookieName] !== undefined) {
+		return res.render('room-admin'); 
+	}
+	return res.render('credentials', { 'target' : 'create' });
+})
+
+app.get('/room', function(req, res) {
+	if (req.cookies[cookieName] !== undefined) {
+		return res.render('join', {
+			cluster : cluster,
+			username : req.cookies[cookieName]
+		})
+	}
+	res.render('credentials', { 'target' : 'room' });
+})
+
+app.post('/create', function(req, res) {
+	res.cookie(cookieName, req.body.username, { maxAge: 900000, httpOnly: false });
+	return res.render('room-admin');
 });
 
-app.get('/room/:id', function(req,  res) {
+app.post('/room', function(req, res) {
+	res.cookie(cookieName, req.body.username, { maxAge: 900000, httpOnly: false });
+	return res.render('join', {
+		cluster : cluster,
+		username : req.body.username
+	});
+})
+
+app.get('/room/:id', function(req, res) {
 	var roomId = req.params.id;
 	if (cluster[roomId] !== undefined) {
-		res.render('room', {
-			'roomId' : roomId
-		});
+		if (req.cookies[cookieName] !== undefined) {
+			return res.render('room', {
+				'roomId' : roomId
+			});
+		}
+		else {
+			return res.render('credentials', { target : 'room/' + roomId });
+		}
+	}
+	else {
+		return res.redirect('/');
+	}
+})
+
+app.post('/room/:id', function(req,  res) {
+	res.cookie(cookieName, req.body.username, { maxAge: 900000, httpOnly: false });
+	var roomId = req.params.id;
+	if (cluster[roomId] !== undefined) {
+			return res.render('room', {
+				'roomId' : roomId
+			});
 	}
 	else {
 		return res.redirect('/');
@@ -47,7 +97,7 @@ io.on('connection', function(socket) {
 		if (data.type == "admin") {
 			socket.on('peerId', function(id) {
 				members[socket.id] = socket.id;
-				room = new Room(socket.id, id);
+				room = new Room(socket.id, id, data.username);
 				cluster[socket.id] = room;
 				socket.join(room.name);
 				socket.emit('sendUrl', config.url + "/room/" + socket.id);
@@ -63,34 +113,46 @@ io.on('connection', function(socket) {
 			socket.on('peerId', function(id) {
 				console.log("emitted by " + id);
 				socket.broadcast.to(room.name).emit('addPeer', id);
-				room.addMember(id);
+				room.addMember(id, data.username);
 			});
 		}
 	});
 
-   socket.on('disconnect', function(){
+   socket.on('disconnect', async function(){
    	console.log(cluster);
    	console.log(members);
+   	if (typeof cluster[members[socket.id]] !== 'undefined') {
+
     cluster[members[socket.id]].strength--;
+
     if ( cluster[members[socket.id]].load > 0 )
     	cluster[members[socket.id]].load--;
+
     if ( cluster[members[socket.id]].strength === 0 )
-    	delete cluster[members[socket.id]];
-    delete members[socket.id];
+    	await delete cluster[members[socket.id]];
+	}
+
+	if (typeof members[socket.id] !== 'undefined')
+    	delete members[socket.id];
+    
   });
 
   socket.on('function', function(data){
-    io.to(data.roomId).emit('execute', data.action);
+    io.to(data.roomId).emit('execute', { action : data.action,
+    									 song : data.song } );
   });
 
   socket.on('clear', function(roomId){
-    cluster[roomId].load = 0;
+  	if (cluster[roomId] !== undefined)
+    	cluster[roomId].load = 0;
   });
 
   socket.on('standby', function(roomId){
-    cluster[roomId].load++;
-    if( cluster[roomId].load === cluster[roomId].strength )
-      io.to(roomId).emit('go');
+  	if (cluster[roomId] !== undefined) {
+	    cluster[roomId].load++;
+	    if( cluster[roomId].load === cluster[roomId].strength )
+	      io.to(roomId).emit('go');
+	}
   });
 
 });

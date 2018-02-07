@@ -1,0 +1,43 @@
+<link rel="stylesheet" type="text/css" href="/css/join.css">
+<div class = "container">
+	<div id = "topbar">
+		Welcome <span id = "username"><%= username %>!</span>
+	</div>
+		<div id = "title">
+			List Of Existing Rooms
+		</div>
+	<div id = "room-list">
+		<% for (room in cluster) {%>
+		<a href="/room/<%=cluster[room].name%>/">
+			<div class = "room">
+				<div id = "name">
+					<span id = "room-url"><%= cluster[room].roomHandle %></span>
+				</div>
+				<div id = "strength">
+					No. of members : <%= cluster[room].strength %>
+				</div>
+				<div id = "members">
+					Members:
+					<ul>
+						<% for (member in cluster[room].members) { %>
+							<li>
+								<%= cluster[room].members[member]%>
+							</li>
+						<% } %>
+					</ul>
+				</div>
+			</div>
+		</a>
+		<% } %>
+	</div>
+</div>
+
+<script type="text/javascript">
+	var username = getCookie("username");
+	var htmlstring = document.getElementById("room-list").innerHTML;
+	htmlstring = (htmlstring.trim) ? htmlstring.trim() : htmlstring.replace(/^\s+/,'');
+
+	if (htmlstring == '') {
+		document.getElementById("room-list").innerHTML = "There are no available rooms."
+	}
+</script>

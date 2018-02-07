@@ -1,22 +1,21 @@
-<% extend('player') %>
+<% extend('player2') %>
 <!-- A dirty hack for the clipboard -->
 <button class = "btn" class = "hidden" id = "copy-btn" style = "display: none;"></button>
 
 <!--<video width="320" height="240" class = "media" id = "self" control muted autoplay>
 </video>-->
 
-<script type="text/javascript" src="/js/peer.min.js"></script>
-<script type="text/javascript" src="/socket.io/socket.io.js"></script>
 <script type="text/javascript">
+	var username = getCookie("username");
 	var socket = io();
 	socket.emit('type', {
 		type : 'admin',
-		url : 'create'
+		url : 'create',
+		username : username
 	});
 </script>
 <script type="text/javascript" src = "/js/room-admin.js"></script>
 <script type="text/javascript" src = "/js/connection.js"></script>
 <script type="text/javascript" src="/js/buffer-loader.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
 <script type="text/javascript" src="/js/audio-controller.js"></script>
 <script type="text/javascript" src="/js/player.js"></script>
