@@ -3,7 +3,7 @@ var peerId;
 var calls = [];
 navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 //var mediaDiv = '<video width="320" height="240" class = "media" controls autoplay ';
-var mediaDiv = '<audio class = "media" controls autoplay ';
+var mediaDiv = '<audio class = "media" style = "display: none;" controls autoplay ';
 var numOfPeers = 0;
 
 peer.on('open', async function(id) {

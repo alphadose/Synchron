@@ -1,20 +1,27 @@
 body {
-	background-color: #ddd;
 	font-family: 'Open Sans', sans-serif;
 	color: #ddd;
+	height: 100%;
+	overflow-y: auto;
+	background-image: none;
 }
 
 #topbar {
 	font-family: 'Open Sans', sans-serif;
 	font-size: 4em;
 	color: #ddd;
+	margin-left: 0.5em;
 }
 
 .container {
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
 	position: absolute;
-	margin-top: 2em;
-	margin-left: 2em;
-	width: 100%;
+	background-image: url('/assets/bg.jpg');
+	background-repeat: no-repeat;
+	background-size: cover;
 }
 
 #username {
@@ -31,10 +38,11 @@ body {
 
 #room-list {
 	position: relative;
-	margin-left: 4em;
-	margin-right: 8em;
-	border: solid 1px;
-	border-radius: 10px;
+	margin-left: 2em;
+	margin-right: 6em;
+	display: flex;
+	padding: 1em;
+	flex-wrap: wrap;
 }
 
 a {
@@ -48,14 +56,18 @@ a {
 
 .room {
 	padding: 1em;
-	margin-top: 1em;
-	margin-bottom: 1em;
-	border-radius: 10px;
+	margin: 1em;
 	color: #aaa;
+	border: solid 1px;
+	border-radius: 10px;
+	width: 30vw;
+	height: 30vh;
+	overflow-x: auto;
+	overflow-y: auto;
 }
 
 .room:hover {
-
+	transform: translate(-1px, -1px);
 }
 
 ul {
