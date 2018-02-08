@@ -25,9 +25,10 @@ function getStream(id) {
 function connectWithPeers(id) {
   socket.emit('peerId', id);
   listenForCall();
-  socket.on('addPeer', function(id) {
-    console.log("emitted");
-    callPeer(id);
+  socket.on('addPeer', function(data) {
+    let newMember = data.newMember;
+    console.log(newMember + " joined");
+    callPeer(data.id);
   })  
 }
 
