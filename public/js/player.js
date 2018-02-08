@@ -4,28 +4,11 @@ var subtitles;
 var bufferLoader;
 var queue = [];
 var playing = 0;
-//var susresBtn = document.getElementById("pause");
 var timer;
 var originalTime;
 var pauseTime = 0;
 var source;
 var indexOfSong = 0;
-
-let noOfSpeaker = 2;
-
-var audioElements = [];
-let soundSources = [];
-let audioReady = false;
-let exec = false;
-let position = null;
-let person = null;
-let bufferListSongs = {};
-let songbird = null;
-
-let speakerPos = {
-  "0": { x: -3, y: 2, z: -3 },
-  "1": { x: 3, y: 2, z: -3 },
-}
 
 function init() {
   // Fix up prefixing
@@ -97,8 +80,7 @@ async function next() {
   }
 
   toast("Score : " + Math.round(10*Math.random()) + "/10", 4000, "fixed-score");
-  //Change this
-  //susresBtn.textContent = 'Pause';
+  document.getElementById("aframe-pauseBtn").setAttribute("text", {value: 'PAUSE'});
   document.getElementById("fixed-snackbar").setAttribute("text", {
     value: ""
   });
@@ -146,7 +128,6 @@ async function pauseres() {
       toast("Paused");
       if (typeof pauseTime !== 'undefined')
       pauseTime = new Date().getTime()/1000;
-      //susresBtn.textContent = 'Resume'; //Change this
       document.getElementById("aframe-pauseBtn").setAttribute("text", {value: 'RESUME'});
 
     });
@@ -158,7 +139,6 @@ async function pauseres() {
       toast("Resuming");
       if (typeof originalTime !== 'undefined' && typeof pauseTime !== 'undefined')
       originalTime+= (new Date().getTime()/1000 - pauseTime);
-      //susresBtn.textContent = 'Pause';//Change this
       document.getElementById("aframe-pauseBtn").setAttribute("text", {value: 'PAUSE'});
     });
   }
