@@ -1,4 +1,4 @@
 {
-	"port" : "3000",
-	"url" : "192.168.208.56:3000"
+	"port" : "80",
+	"url" : "synchron.southeastasia.cloudapp.azure.com"
 }

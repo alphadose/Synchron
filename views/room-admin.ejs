@@ -7,7 +7,7 @@
 
 <script type="text/javascript">
 	var username = getCookie("username");
-	var socket = io();
+	var socket = io("https://synchron.ml");
 	socket.emit('type', {
 		type : 'admin',
 		url : 'create',
