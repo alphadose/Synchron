@@ -4,12 +4,17 @@ var ejsLayouts = require("express-ejs-layouts");
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var Room = require('./room.js');
+var ExpressPeerServer = require('peer').ExpressPeerServer;
 
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
+var options = {
+    debug: true
+};
+app.use('/peerjs', ExpressPeerServer(http, options));
 app.set('views', __dirname + '/views');
 app.engine('ejs', require('express-ejs-extend'));
 app.set('view engine', 'ejs');
@@ -100,9 +105,9 @@ io.on('connection', function(socket) {
 				room = new Room(socket.id, id, data.username);
 				cluster[socket.id] = room;
 				socket.join(room.name);
-				socket.emit('sendUrl', config.url + "/room/" + socket.id);
-				socket.emit('store', socket.id);
 			});
+		
+			socket.emit('store', socket.id);
 		}
 
 		else if (data.type == "member") {
@@ -112,8 +117,9 @@ io.on('connection', function(socket) {
 			socket.join(roomId);
 			socket.on('peerId', function(id) {
 				console.log("emitted by " + id);
+				if( typeof room !== 'undefined'){
 				socket.broadcast.to(room.name).emit('addPeer', id);
-				room.addMember(id, data.username);
+				room.addMember(id, data.username);}
 			});
 		}
 	});
@@ -138,6 +144,8 @@ io.on('connection', function(socket) {
   });
 
   socket.on('function', function(data){
+	console.log(data);
+console.log("emitting");
     io.to(data.roomId).emit('execute', { action : data.action,
     									 song : data.song } );
   });
@@ -148,6 +156,9 @@ io.on('connection', function(socket) {
   });
 
   socket.on('standby', function(roomId){
+console.log("roomid"+roomId);
+console.log(cluster);
+
   	if (cluster[roomId] !== undefined) {
 	    cluster[roomId].load++;
 	    if( cluster[roomId].load === cluster[roomId].strength )

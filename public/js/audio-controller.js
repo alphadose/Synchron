@@ -16,7 +16,7 @@ socket.on('go', function(){
 });
 
 socket.on('execute', function(data){
-
+	console.log(data);
     switch(data.action) {
 
     	case "pauseres":
