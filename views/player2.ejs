@@ -116,6 +116,12 @@
 
 
   <!-- room, floor and TV sets -->
+<a-box color="black" width="2" height="2" depth="2" id="icon" position="-2.378 0.715 -2.708" scale="0.699 0.369 0.172">
+  <a-entity text="value: Synchron; color: white; width: 10" position="4.157 0.000 1.476">
+  </a-entity>
+</a-box>
+
+  </a-plane>
   <a-entity id="room" gltf-model="#set-obj" proxy-event="event: dancing" roomcolor="#999">
     <a-entity sound="loop: true" position="0 2 -1"></a-entity>
     <a-animation attribute="roomcolor" begin="dancing" to="#FFF" dur="1000" easing="ease-out-elastic"></a-animation>
@@ -127,12 +133,12 @@
 
 
   <a-camera listener>
-    <a-cursor position="0 0 -1" geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03" material="color: black; shader: flat">
-      <a-entity position=".5 .7 -.01" id="fixed-snackbar" text="width: 2; color: white">
-      </a-entity>      
-      <a-entity position=".5 -.2 -.01" id="fixed-score" text="width: 2; color: white">
+    <a-cursor position="0 0 -1" geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03" material="color: white; shader: flat">
+      <a-entity position="-1 .7 -.01" id="fixed-snackbar" rotation="0 0 45" text="width: 1.5; color: white">
       </a-entity>
-      <a-entity position=".5 -.7 -.01" id="subs" text="width: 2; color: white">
+      <a-entity position=".5 -.2 -.01" id="fixed-score" rotation="0 0 45" text="width: 2; color: white">
+      </a-entity>
+      <a-entity position="1 .3 -.01" id="subs" rotation="0 0 0" text="width: 1.5; color: white">
       </a-entity>
     </a-cursor>
   </a-camera>
@@ -140,20 +146,20 @@
 <div id="snackbar">Some text some message..</div>
 <script>
   let sceneEl = document.querySelector('#aframe-playlist');
-    let entityEl = document.createElement('a-entity');
-    entityEl.setAttribute('geometry', {
-      primitive: 'box',
-      height: .5,
-      width: 2,
-      depth: 0,
-    });
-    entityEl.setAttribute('material', 'color', 'black');
-    entityEl.setAttribute('position', { x: 0, y: 2.4 , z: .01 });
-    entityEl.setAttribute('text', { value: 'SONGS', align: 'center', width: 6 });
-    sceneEl.appendChild(entityEl);
+  let entityEl = document.createElement('a-entity');
+  entityEl.setAttribute('geometry', {
+    primitive: 'box',
+    height: .5,
+    width: 2,
+    depth: 0,
+  });
+  entityEl.setAttribute('material', 'color', 'black');
+  entityEl.setAttribute('position', { x: 0, y: 2.4, z: .01 });
+  entityEl.setAttribute('text', { value: 'SONGS', align: 'center', width: 6 });
+  sceneEl.appendChild(entityEl);
 
 
-    let songslistforplaying = ["Wake_Me_Up", "Demons", "Bloodstream", "Blank_Space"];
+  let songslistforplaying = ["Wake_Me_Up", "Demons", "Bloodstream", "Blank_Space"];
   for (i = 0; i < 4; i++) {
     let entityEl = document.createElement('a-entity');
     entityEl.setAttribute('geometry', {
@@ -164,22 +170,22 @@
     });
     entityEl.setAttribute('material', 'color', '#101010');
     entityEl.setAttribute('id', songslistforplaying[i]);
-    entityEl.setAttribute('playable-song', '' );
+    entityEl.setAttribute('playable-song', '');
     entityEl.setAttribute('position', { x: 0, y: 1.6 - .8 * i, z: .01 });
-    entityEl.setAttribute('text', { value: songslistforplaying[i] , align: 'center', width: 6 });
+    entityEl.setAttribute('text', { value: songslistforplaying[i], align: 'center', width: 6 });
     sceneEl.appendChild(entityEl);
-}
-let queueEl = document.querySelector('#aframe-queue');
-    let addedEl = document.createElement('a-entity');
-    addedEl.setAttribute('geometry', {
-      primitive: 'box',
-      height: .5,
-      width: 2,
-      depth: 0,
-    });
-    addedEl.setAttribute('material', 'color', 'black');
-    addedEl.setAttribute('position', { x: 0, y: 2.4 , z: .01 });
-    addedEl.setAttribute('text', { value: 'PLAYLIST', align: 'center', width: 6 });
-    queueEl.appendChild(addedEl);
+  }
+  let queueEl = document.querySelector('#aframe-queue');
+  let addedEl = document.createElement('a-entity');
+  addedEl.setAttribute('geometry', {
+    primitive: 'box',
+    height: .5,
+    width: 2,
+    depth: 0,
+  });
+  addedEl.setAttribute('material', 'color', 'black');
+  addedEl.setAttribute('position', { x: 0, y: 2.4, z: .01 });
+  addedEl.setAttribute('text', { value: 'PLAYLIST', align: 'center', width: 6 });
+  queueEl.appendChild(addedEl);
 </script>
 <%- content %>
