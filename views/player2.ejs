@@ -1,27 +1,16 @@
 <head>
   <link rel="stylesheet" href="/css/main.css">
 
-  <script src="/vendor/aframe.min.js"></script>
-  <script src="/vendor/aframe-motion-capture-components.js"></script>
-  <script src="/vendor/CCapture.min.js"></script>
-  <script src="/vendor/songbird.min.js"></script>
-  <script src="/vendor/aframe-bmfont-text-component.min.js"></script>
-  <script type="text/javascript" src="/js/peer.js
-"></script>
+  <script type="text/javascript" src="/js/peer.js"></script>
   <script type="text/javascript" src="/socket.io/socket.io.js"></script>
-
-  <script src='/components/states/replay.js'> </script>
-  <script src='/components/states/instructions.js'> </script>
-
-  <script src='/components/proxy-event.js'> </script>
-  <script src="/components/option-select-button.js"></script>
-  <script src='/components/game-state.js'> </script>
-  <script src='/components/discofloor.js'> </script>
-  <script src='/components/spotlight.js'> </script>
-  <script src='/components/roomcolor.js'> </script>
-  <script src='/components/listener.js'> </script>
-  <script src='/components/playable-song.js'> </script>
-  <script src='/components/emit-close.js'> </script>
+  <script type="text/javascript">
+    var socket = io("https://synchron.ml");
+  </script>
+  <script src='/js/buffer-loader.js'> </script>
+  <script src='/js/audio-controller.js'> </script>
+  <script src='/js/connection.js'> </script>
+  <script src='/js/player.js'> </script>
+  <script src='/js/bundle.js'> </script>
 
 </head>
 

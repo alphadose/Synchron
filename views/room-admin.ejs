@@ -7,15 +7,16 @@
 
 <script type="text/javascript">
 	var username = getCookie("username");
-	var socket = io("https://synchron.ml");
 	socket.emit('type', {
 		type : 'admin',
 		url : 'create',
 		username : username
 	});
+	var roomId;
+
+	socket.on('store', function(id){
+
+		roomId = id;
+
+	});
 </script>
-<script type="text/javascript" src = "/js/room-admin.js"></script>
-<script type="text/javascript" src = "/js/connection.js"></script>
-<script type="text/javascript" src="/js/buffer-loader.js"></script>
-<script type="text/javascript" src="/js/audio-controller.js"></script>
-<script type="text/javascript" src="/js/player.js"></script>
