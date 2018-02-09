@@ -120,7 +120,7 @@ io.on('connection', function(socket) {
 				if( typeof room !== 'undefined'){
 				socket.broadcast.to(room.name).emit('addPeer', {
 					id : id,
-					newMember : username
+					newMember : data.username
 				});
 				room.addMember(id, data.username);}
 			});
