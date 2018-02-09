@@ -139,26 +139,27 @@ async function finishedLoading() {
 }
 
 async function pauseres() {
-
   if (context.state === 'running') {
     context.suspend().then(function () {
       if (typeof timer !== 'undefined')
-        timer.pause();
+      timer.pause();
       toast("Paused");
       if (typeof pauseTime !== 'undefined')
-        pauseTime = new Date().getTime()/1000;
+      pauseTime = new Date().getTime()/1000;
       //susresBtn.textContent = 'Resume'; //Change this
+      document.getElementById("aframe-pauseBtn").setAttribute("text", {value: 'RESUME'});
 
     });
 
   } else if (context.state === 'suspended') {
     context.resume().then(function () {
       if (typeof timer !== 'undefined')
-        timer.resume();
+      timer.resume();
       toast("Resuming");
       if (typeof originalTime !== 'undefined' && typeof pauseTime !== 'undefined')
-        originalTime+= (new Date().getTime()/1000 - pauseTime);
+      originalTime+= (new Date().getTime()/1000 - pauseTime);
       //susresBtn.textContent = 'Pause';//Change this
+      document.getElementById("aframe-pauseBtn").setAttribute("text", {value: 'PAUSE'});
     });
   }
 }
@@ -169,7 +170,7 @@ function toast(message, timeout = 2000, defaultTag = "fixed-snackbar") {
     value: message
   });
 
-  setTimeout(function(){        
+  setTimeout(function(){
    document.getElementById(defaultTag).setAttribute("text", {
     value: '' })}, timeout);
 
