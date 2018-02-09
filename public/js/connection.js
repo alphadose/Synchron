@@ -1,3 +1,4 @@
+
 var peer = new Peer({host : 'synchron.ml' , path : '/peerjs' ,port : ''});
 var peerId;
 var calls = [];
@@ -21,15 +22,25 @@ function getStream(id) {
     console.log(err);
   });
 }
-
+let tmpposarray=[
+  {x: 1, z: 1},
+  {x: -1, z: -1},
+  {x: -1, z: 1},
+  {x: 1, z: -1},
+  {x: 1, z: -1.5},
+  {x: 1, z: -1.5},
+];
 function connectWithPeers(id) {
   socket.emit('peerId', id);
   listenForCall();
   socket.on('addPeer', function(data) {
     let newMember = data.newMember;
-    console.log(newMember + " joined");
+    if(tmpposarray.length){
+      addModel(newMember, tmpposarray[0].x, 0, tmpposarray[0].z);
+      tmpposarray.pop();
+    }
     callPeer(data.id);
-  })  
+  })
 }
 
 function listenForCall() {
@@ -67,7 +78,7 @@ function addMedia(remoteStream) {
       calls[i] = peer.call(id, stream);
       calls[i].on('stream', function(remoteStream) {
 
-      });  
+      });
     }
         var call = peer.call(id, stream);
         call.on('stream', function(remoteStream) {

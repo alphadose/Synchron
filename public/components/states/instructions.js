@@ -1,5 +1,4 @@
-import { setTimeout } from "timers";
-
+var canstartrendermodel =false;
 function getUrlParams () {
   var match;
   var pl = /\+/g;  // Regex for replacing addition symbol with a space
@@ -77,25 +76,27 @@ AFRAME.registerComponent('instructions', {
       return;
     }
     var buttonLabelEl = this.startButtonEl.querySelector('span');
-    buttonLabelEl.innerHTML = 'START';
-    this.toast("You can now also see your friend as dummy model.", 3000)
-    setTimeout(function(){
-      this.toast("we are working on decreasing the bandwith and cpu utilisation", 3000)
-    },3000);
+    buttonLabelEl.innerHTML = 'Start without It';
+    document.getElementById("above-start-button").innerHTML = 'Use this feature';
+
+    this.toast("You can now also see your friend as dummy model.", 9000 , "fixed-helper")
     buttonLabelEl.classList.remove('loading');
   },
 
-  startReplaying: function () {
+  startReplaying: function (defaultvalue=false) {
     if (!this.danceData) { return; }
-
+    canstartrendermodel = defaultvalue;
+    console.log(canstartrendermodel);
     var el = this.el;
-    document.querySelector('.start-button').style.display = 'none';
+    document.querySelector('.instructions').style.display = 'none';
     el.setAttribute('game-state', 'state', 'replay');
     el.components['replay'].loadDance(this.danceData);
   },
-
   play: function () {
     this.startButtonEl.addEventListener('click', this.startReplaying);
+    document.getElementById("above-start-button").addEventListener('click', (function () {
+      this.startReplaying(true);
+    }).bind(this));
     this.el.sceneEl.addEventListener('enter-vr', this.startReplaying);
   },
 
