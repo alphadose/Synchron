@@ -221,7 +221,7 @@ document.getElementById("models-location").appendChild(container);
 socket.on('getOthers', function(data){
   let pos = data.positions;
   for(var i in pos){
-    addModel("Meow", pos[i][0], pos[i][1] , pos[i][2]);
+    addModel(data.names[i], pos[i][0], pos[i][1] , pos[i][2]);
   }
 });
 

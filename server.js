@@ -127,7 +127,8 @@ io.on('connection', function(socket) {
 				});
 
 				socket.emit('getOthers', {
-					positions : room.positions.slice(room.index+1, 100)
+					positions : room.positions.slice(room.index+1, 100),
+					names : Object.values(room.members)
 				});
 
 				room.index--;
