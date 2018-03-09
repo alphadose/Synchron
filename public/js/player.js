@@ -88,7 +88,6 @@ async function next() {
   if (typeof timer !== 'undefined')
     timer.clear();
 
-  setTimeout(function(){toast("Playing next");},3000);
   await fetch();
 
   if (context.state === 'suspended')
