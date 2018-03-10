@@ -3179,7 +3179,7 @@ AFRAME.registerComponent('roomcolor', {
 /* 19 */
 /***/ (function(module, exports) {
 
-/**AFRAME.registerComponent('listener', {
+AFRAME.registerComponent('listener', {
     tick: function () {
         pos = this.el.getAttribute('position');
         if (soundSources.length) {
@@ -3188,7 +3188,7 @@ AFRAME.registerComponent('roomcolor', {
             }
         }
     }
-});*/
+});
 
 
 /***/ }),
