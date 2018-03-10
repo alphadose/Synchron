@@ -110,6 +110,7 @@ socket.on('getOthers', function(data){
   let pos = data.positions;
   document.querySelector("a-camera").setAttribute("position", {x:pos[0][0] ,y: pos[0][1]+1.5 ,z: pos[0][2]});
   for(var i=1 ;i<pos.length;i++){
-    addModel(data.names[i], pos[i][0], pos[i][1] , pos[i][2]);
+    addModel(data.names[i-1], pos[i][0], pos[i][1] , pos[i][2]);
+    console.log("Names are "+data.names);
   }
 });
