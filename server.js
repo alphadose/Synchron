@@ -1,3 +1,73 @@
+var http = require('http')
+var https = require('https')
+var url = require('url')
+var os = require("os")
+
+var enableTunnel = false
+for (let j = 0; j < process.argv.length; j++) {
+    enableTunnel |= process.argv[j] == 'enableTunnel';
+}
+
+var key = "05d238d915da4838a42ab3f8fffb443e";
+
+if (enableTunnel) {
+    var localtunnel = require('localtunnel');
+    var tunnel = localtunnel(port, function(err, tunnel) {
+        if (err) {
+            server.close();
+            console.log('Something went south...' + err.message)
+        } else {
+            printServerInfo(tunnel.url)
+        }
+    });
+
+    tunnel.on('close', function() {
+        server.close();
+    });
+} else {
+    printServerInfo('http://'+os.hostname() );
+}
+
+var respond = function(status, data, response) {
+	contentType = 'text/plain';
+	response.writeHead(status, {'Content-Type': contentType});
+	!!data && response.write(data);
+	response.end();
+}
+
+
+function printServerInfo(url) {
+    console.log('Up and running @ ' + url);
+}
+
+function getToken(apiKey, result, response) {
+    var options = {
+        host: 'api.cognitive.microsoft.com',
+        path: '/sts/v1.0/issueToken',
+        method: 'POST',
+         headers: {
+            'Content-type': 'application/x-www-form-urlencoded',
+            'Content-Length': '0',
+            'Ocp-Apim-Subscription-Key': apiKey
+        }
+    };
+    var callback = function(response) {
+      var token = ''
+      response.on('data', function (chunk) {
+        token += chunk;
+      });
+
+      response.on('end', function () {
+        result(token);
+      });
+    }
+
+    var issueTokenRequest = https.request(options, callback);
+    issueTokenRequest.end();
+}
+
+/* extra functions */
+
 var express = require('express');
 var app = express();
 var ejsLayouts = require("express-ejs-layouts");
@@ -35,9 +105,15 @@ app.get('/', function(req, res) {
 	res.render('home');
 });
 
+app.get('/token', function(req, res) {
+	getToken(key, function(token){
+		respond(200, token, res)
+	 })
+});
+
 app.get('/create', function(req, res) {
 	if (req.cookies[cookieName] !== undefined) {
-		return res.render('room-admin'); 
+		return res.render('room-admin');
 	}
 	return res.render('credentials', { 'target' : 'create' });
 })
@@ -98,7 +174,7 @@ app.post('/room/:id', function(req,  res) {
 io.on('connection', function(socket) {
 	var room;
 	socket.on('type', function(data) {
-		
+
 		if (data.type == "admin") {
 			socket.on('peerId', function(id) {
 				members[socket.id] = socket.id;
@@ -108,7 +184,7 @@ io.on('connection', function(socket) {
 				socket.emit('store', { id : socket.id,
 								   	   pos : room.positions[room.index] });
 				room.index--;
-			});		
+			});
 		}
 
 		else if (data.type == "member") {
@@ -150,7 +226,7 @@ io.on('connection', function(socket) {
 
 	if (typeof members[socket.id] !== 'undefined')
     	delete members[socket.id];
-    
+
   });
 
   socket.on('function', function(data){
