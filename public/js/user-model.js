@@ -77,12 +77,19 @@ container.appendChild(modeltobe);
 let namemodel = document.createElement("a-entity");
 let namemodel1 = document.createElement("a-entity");
 let nameanimation = document.createElement("a-animation");
+let nameanimation1 = document.createElement("a-animation");
 
 nameanimation.setAttribute("attribute", "rotation");
 nameanimation.setAttribute("to", "0 360 0");
 nameanimation.setAttribute("repeat", "indefinite");
 nameanimation.setAttribute("fill", "forwards");
 nameanimation.setAttribute("duration", "10000");
+
+nameanimation1.setAttribute("attribute", "rotation");
+nameanimation1.setAttribute("to", "0 360 0");
+nameanimation1.setAttribute("repeat", "indefinite");
+nameanimation1.setAttribute("fill", "forwards");
+nameanimation1.setAttribute("duration", "10000");
 
 namemodel.setAttribute("position", { y: 2});
 namemodel.setAttribute("rotation", {y: 360 - anglevalue});
@@ -92,7 +99,8 @@ namemodel1.setAttribute("position", { y: 2});
 namemodel1.setAttribute("rotation", {y: 360 - anglevalue + 180});
 namemodel1.setAttribute("text" , {value: name ,width:3 ,align: 'center'});
 
-//namemodel.append(nameanimation);
+namemodel.append(nameanimation);
+namemodel1.append(nameanimation1);
 container.appendChild(namemodel);
 container.appendChild(namemodel1);
 document.getElementById("models-location").appendChild(container);
