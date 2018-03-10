@@ -96,7 +96,7 @@ namemodel.setAttribute("rotation", {y: 360 - anglevalue});
 namemodel.setAttribute("text" , {value: name ,width:3 ,align: 'center'});
 
 namemodel1.setAttribute("position", { y: 2});
-namemodel1.setAttribute("rotation", {y: 360 - anglevalue + 180});
+namemodel1.setAttribute("rotation", {y: 360 - anglevalue + 360});
 namemodel1.setAttribute("text" , {value: name ,width:3 ,align: 'center'});
 
 namemodel.append(nameanimation);
