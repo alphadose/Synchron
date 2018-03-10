@@ -10,10 +10,41 @@ var pauseTime = 0;
 var source;
 var indexOfSong = 0;
 
+let noOfSpeaker = 2;
+
+var audioElements = [];
+let soundSources = [];
+let audioReady = false;
+let exec = false;
+let position = null;
+let person = null;
+let bufferListSongs = {};
+let songbird = null;
+
+let speakerPos = {
+  "0": { x: -3, y: 2, z: -3 },
+  "1": { x: 3, y: 2, z: -3 },
+}
+
 function init() {
   // Fix up prefixing
   window.AudioContext = window.AudioContext || window.webkitAudioContext;
   context = new AudioContext();
+  songbird = new Songbird(context);
+  var dimensions = {
+    width: 3.1,
+    height: 2.5,
+    depth: 3.4
+  };
+  var materials = {
+    left: 'curtain-heavy',
+    right: 'curtain-heavy',
+    front: 'curtain-heavy',
+    back: 'curtain-heavy',
+    down: 'grass',
+    up: 'transparent'
+  };
+  songbird.setRoomProperties(dimensions, materials);
 }
 
 async function fetch() {
@@ -71,11 +102,13 @@ async function next() {
 
   socket.emit('clear', roomId);
 
-  if( typeof source !== 'undefined')
-    source.onended = null;
+ if (audioElements.length)
+    for (i = 0; i < noOfSpeaker; i++)
+      audioElements[i].onended = null;
 
   if (playing === 1) {
-    source.stop();
+     for (i = 0; i < noOfSpeaker; i++)
+       audioElements[i].stop();
     playing = 0;
   }
 
@@ -97,11 +130,33 @@ async function next() {
 
 async function synchronise(bufferList) {
 
-  source = await context.createBufferSource();
-  source.onended = next;
-  source.buffer = bufferList[0];
+  await songbird.output.connect(context.destination);
 
-  await source.connect(context.destination);
+  bufferListSongs = bufferList;
+  for (i = 0; i < noOfSpeaker; i++) {
+    audioElements[i] = await context.createBufferSource();
+    audioElements[i].buffer = bufferListSongs[0];
+  }
+
+  for (let i = 0; i < noOfSpeaker; i++) {
+    soundSources[i] = songbird.createSource();
+    audioElements[i].connect(soundSources[i].input);
+  }
+  /* setpositionofspeaker */
+  for(i=0; i<noOfSpeaker; i++)
+    soundSources[i].setPosition(speakerPos[i.toString()].x, speakerPos[i.toString()].y, speakerPos[i.toString()].z);
+
+  let gain = context.createGain();
+  gain.gain.value = 1 / (2 * noOfSpeaker);
+  songbird.output.connect(gain);
+  gain.connect(context.destination);
+  console.log("called");
+  console.log(audioElements);
+  for (i = 0; i < noOfSpeaker; i++) {
+    //audioElements[i].start(0);
+  }
+  exec = true;
+
   socket.emit('standby', roomId);
 
 }
@@ -109,7 +164,9 @@ async function synchronise(bufferList) {
 async function finishedLoading() {
 
   if (playing === 0)
-      source.start(0);
+    for(i=0; i<noOfSpeaker; i++){
+      audioElements[i].start(0);
+    }
 
   timer = await new InvervalTimer(function () {
     displaySubtitles(subtitles);
