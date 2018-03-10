@@ -1,4 +1,4 @@
-  let sceneEl = document.querySelector('#aframe-playlist');
+    let sceneEl = document.querySelector('#aframe-playlist');
   let entityEl = document.createElement('a-entity');
   entityEl.setAttribute('geometry', {
     primitive: 'box',
@@ -75,11 +75,26 @@ modeltobe.setAttribute("json-model", {src: 'char_final.json' ,x:xl ,y: yl ,z: zl
 
 container.appendChild(modeltobe);
 let namemodel = document.createElement("a-entity");
-namemodel.setAttribute("position", {y: 2});
-namemodel.setAttribute("rotation", {y: 360 - anglevalue });
-namemodel.setAttribute("text" , {value: name ,width:3 ,align: 'center'});
-container.appendChild(namemodel);
+let namemodel1 = document.createElement("a-entity");
+let nameanimation = document.createElement("a-animation");
 
+nameanimation.setAttribute("attribute", "rotation");
+nameanimation.setAttribute("to", "0 360 0");
+nameanimation.setAttribute("repeat", "indefinite");
+nameanimation.setAttribute("fill", "forwards");
+nameanimation.setAttribute("duration", "10000");
+
+namemodel.setAttribute("position", { y: 2});
+namemodel.setAttribute("rotation", {y: 360 - anglevalue});
+namemodel.setAttribute("text" , {value: name ,width:3 ,align: 'center'});
+
+namemodel1.setAttribute("position", { y: 2});
+namemodel1.setAttribute("rotation", {y: 360 - anglevalue + 180});
+namemodel1.setAttribute("text" , {value: name ,width:3 ,align: 'center'});
+
+//namemodel.append(nameanimation);
+container.appendChild(namemodel);
+container.appendChild(namemodel1);
 document.getElementById("models-location").appendChild(container);
 }
 
