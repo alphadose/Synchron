@@ -18,11 +18,13 @@
   },
   "homepage": "https://github.com/harsh-98/MusicVR#readme",
   "dependencies": {
+    "cookie-parser": "^1.4.3",
     "ejs": "^2.5.7",
     "express": "^4.16.2",
     "express-ejs-extend": "0.0.1",
     "express-ejs-layouts": "^2.3.1",
     "http": "0.0.0",
+    "peer": "^0.2.8",
     "socket.io": "^2.0.4",
     "sweetalert": "^2.1.0"
   }

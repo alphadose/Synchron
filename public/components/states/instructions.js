@@ -1,4 +1,3 @@
-import { setTimeout } from "timers";
 
 function getUrlParams () {
   var match;
@@ -78,10 +77,6 @@ AFRAME.registerComponent('instructions', {
     }
     var buttonLabelEl = this.startButtonEl.querySelector('span');
     buttonLabelEl.innerHTML = 'START';
-    this.toast("You can now also see your friend as dummy model.", 3000)
-    setTimeout(function(){
-      this.toast("we are working on decreasing the bandwith and cpu utilisation", 3000)
-    },3000);
     buttonLabelEl.classList.remove('loading');
   },
 
