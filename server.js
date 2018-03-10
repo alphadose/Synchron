@@ -201,12 +201,10 @@ io.on('connection', function(socket) {
 					newMember : data.username,
 					position : room.positions[room.index]
 				});
-
 				socket.emit('getOthers', {
 					positions : room.positions.slice(room.index, 100),
 					names : Object.values(room.members)
 				});
-
 				room.index--;
 				room.addMember(id, data.username);
 				}
