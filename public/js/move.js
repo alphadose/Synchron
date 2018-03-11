@@ -1,5 +1,5 @@
 function movePerson(direction) {
-    if (direction.match(/right/gi) || direction.match(/back/gi) || direction.match(/forward/gi) || direction.match(/left/gi) || direction.match(/stop/gi)) {
+    if (direction.match(/ight/gi) || direction.match(/back/gi) || direction.match(/forward/gi) || direction.match(/left/gi) || direction.match(/stop/gi)) {
         let mainCamera = document.createElement("a-animation");
         let parent = document.getElementById("main-camera")
         mainCamera.setAttribute("attribute", "position")
@@ -18,7 +18,7 @@ function movePerson(direction) {
         }
         let allowed = 0;
         if (pos) {
-            if (direction.match(/right/gi)) {
+            if (direction.match(/ight/gi)) {
                 pos[0] += 2
                 allowed = 1
             }

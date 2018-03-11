@@ -70,14 +70,11 @@ function RecognizerStart(SDK, recognizer) {
                 break;
             case "SpeechStartDetectedEvent" :
                 UpdateStatus("Listening_DetectedSpeech_Recognizing");
-                console.log(JSON.stringify(event.Result)); // check console for other information in result
                 break;
             case "SpeechHypothesisEvent" :
-                UpdateRecognizedHypothesis(event.Result.Text, false);
                 console.log(JSON.stringify(event.Result)); // check console for other information in result
                 break;
             case "SpeechFragmentEvent" :
-                UpdateRecognizedHypothesis(event.Result.Text, true);
                 console.log(event.Result);
                 movePerson(event.Result["Text"]) // check console for other information in result
                 break;
@@ -169,8 +166,6 @@ function OnSpeechEndDetected() {
 }
 
 function UpdateRecognizedPhrase(json) {
-    hypothesisDiv.innerHTML = "";
-    phraseDiv.innerHTML += json + "\n";
 }
 
 function OnComplete() {

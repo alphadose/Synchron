@@ -111,7 +111,6 @@ async function next() {
     playing = 0;
   }
 
-  toast("Score : " + Math.round(10*Math.random()) + "/10", 4000, "fixed-score");
   document.getElementById("aframe-pauseBtn").setAttribute("text", {value: 'PAUSE'});
   document.getElementById("fixed-snackbar").setAttribute("text", {
     value: ""
