@@ -1,7 +1,4 @@
-var peer = new Peer({key: 'peerjs',
-path: '/peerjs', // <==========
-host: 'localhost',
-port: 3000});
+var peer = new Peer({port:'', host: 'synchron.ml', path: '/peerjs'});
 var peerId;
 var calls = [];
 navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
