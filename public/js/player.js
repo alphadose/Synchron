@@ -60,10 +60,6 @@ async function fetch() {
     synchronise
   );
 
-  document.getElementById("fixed-snackbar").setAttribute("text", {
-    value: ""
-  });
-
   toast("Playing "+queue[0]);
 
   if (typeof timer !== 'undefined')
@@ -112,9 +108,8 @@ async function next() {
   }
 
   document.getElementById("subs").setAttribute("text", {value: ""});
-  document.getElementById("aframe-pauseBtn").setAttribute("text", {value: 'PAUSE'});
-  document.getElementById("fixed-snackbar").setAttribute("text", {value: ""});
 
+  document.getElementById("aframe-pauseBtn").setAttribute("text", {value: 'PAUSE'});
   if (typeof timer !== 'undefined')
     timer.clear();
 
@@ -158,7 +153,6 @@ async function synchronise(bufferList) {
 async function finishedLoading() {
 
   document.getElementById("aframe-pauseBtn").setAttribute("text", {value: 'PAUSE'});
-  document.getElementById("fixed-snackbar").setAttribute("text", {value: ""});
 
   if (context.state === 'suspended')
     context.resume();
