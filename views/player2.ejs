@@ -156,13 +156,6 @@
   <a-entity id="tv1" gltf-model="#tv-obj" position="-1.66 2.15 2.18" rotation="0 -33.3 0"></a-entity>
   <a-entity id="tv2" gltf-model="#tv-obj" position="0.87 2.15 -2.44" rotation="0 151.8 0"></a-entity>
 
-  <a-entity position="-1.147 1.576 3.914" scale="0.721 0.276 0.001" rotation="0 180 0" id="exit">
-    <a-box scale="1 1.620 1" width=".9" height=".6" color="#404040">
-      <a-entity scale="5.291 5.291 5.291" position="2.422 -0.037 8.452" rotation="0 -0.810 0" color="black" text="width: 1; value: EXIT; color: white">
-      </a-entity>
-    </a-box>
-  </a-entity>
-
   <a-camera listener id="main-camera">
     <a-cursor position="0 0 -1" geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03" material="color: black; shader: flat">
       <a-entity position="0 .7 -.1" id="fixed-snackbar" text="width: 1; color: white">
@@ -177,11 +170,6 @@
 
 <div id="snackbar">Some text some message..</div>
 <script src='/js/user-model.js'></script>
-<script>
-  document.getElementById("exit").addEventListener("mouseenter", function(){
-    window.location = "/score";
-  });
-</script>
 <script src="/js/move.js"></script>
 <script src="/js/voice-input.js"></script>
 <%- content %>
