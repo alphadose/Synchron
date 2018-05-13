@@ -4,7 +4,7 @@
   <script type="text/javascript" src="/js/peer.js"></script>
   <script type="text/javascript" src="/socket.io/socket.io.js"></script>
   <script type="text/javascript">
-    var socket = io();
+    var socket = io('https://synchron.ml');
   </script>
   <script src='/js/buffer-loader.js'> </script>
   <script src='/js/audio-controller.js'> </script>
@@ -37,12 +37,6 @@
   <button class="start-button">
     <span>Loading...</span>
   </button>
-</div>
-<div id="content" style="display:none">
-  <textarea id="phraseDiv" style="display: inline;width:0px;height:0px"></textarea>
-  <div style="vertical-align: top">
-    <span id="hypothesisDiv" style="width:0px;height:0px;display:inline;"></span>
-  </div>
 </div>
 <a-scene uploadcare="publicKey: 85ed3c25d99e387316bd" game-state avatar-recorder="spectatorPlay: true; spectatorPosition: 0 0 0; localStorage: false; saveFile: false"
   auto-enter-vr="enabled: false">
