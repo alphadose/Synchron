@@ -1,4 +1,7 @@
-var peer = new Peer({key : '2pr6j8fsr9roogvi'});
+var peer = new Peer({key: 'peerjs',
+path: '/peerjs', // <==========
+host: 'localhost',
+port: 3000});
 var peerId;
 var calls = [];
 navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
