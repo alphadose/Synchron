@@ -111,10 +111,9 @@ async function next() {
     playing = 0;
   }
 
+  document.getElementById("subs").setAttribute("text", {value: ""});
   document.getElementById("aframe-pauseBtn").setAttribute("text", {value: 'PAUSE'});
-  document.getElementById("fixed-snackbar").setAttribute("text", {
-    value: ""
-  });
+  document.getElementById("fixed-snackbar").setAttribute("text", {value: ""});
 
   if (typeof timer !== 'undefined')
     timer.clear();
@@ -134,6 +133,7 @@ async function synchronise(bufferList) {
   for (i = 0; i < noOfSpeaker; i++) {
     audioElements[i] = await context.createBufferSource();
     audioElements[i].buffer = bufferListSongs[0];
+    audioElements[i].onended = next;
   }
 
   for (let i = 0; i < noOfSpeaker; i++) {
@@ -156,6 +156,12 @@ async function synchronise(bufferList) {
 }
 
 async function finishedLoading() {
+
+  document.getElementById("aframe-pauseBtn").setAttribute("text", {value: 'PAUSE'});
+  document.getElementById("fixed-snackbar").setAttribute("text", {value: ""});
+
+  if (context.state === 'suspended')
+    context.resume();
 
   if (playing === 0)
     for(i=0; i<noOfSpeaker; i++){
@@ -251,15 +257,13 @@ async function displaySubtitles (subs) {
   var t = new Date().getTime() / 1000 - originalTime;
   var n = document.getElementById("subs");
 
-  subtitles.forEach(function (element, index, array) {
-
-    if (t >= element.start && t <= element.end) {
-
-      document.getElementById("subs").setAttribute("text", {
-        value: element.text
-      })
-
+  for(let index in subtitles) {
+    if(t >= subtitles[index].start && t <= subtitles[index].end) {
+      document.getElementById("subs").setAttribute("text", {value: subtitles[index].text});
+      break;
     }
+    else
+      document.getElementById("subs").setAttribute("text", {value: ""});
+  }
 
-  });
 }
