@@ -1,105 +1,35 @@
-var http = require('http')
-var https = require('https')
-var url = require('url')
-var os = require("os")
-
-var enableTunnel = false
-for (let j = 0; j < process.argv.length; j++) {
-    enableTunnel |= process.argv[j] == 'enableTunnel';
-}
-
-var key = "05d238d915da4838a42ab3f8fffb443e";
-
-if (enableTunnel) {
-    var localtunnel = require('localtunnel');
-    var tunnel = localtunnel(port, function(err, tunnel) {
-        if (err) {
-            server.close();
-            console.log('Something went south...' + err.message)
-        } else {
-            printServerInfo(tunnel.url)
-        }
-    });
-
-    tunnel.on('close', function() {
-        server.close();
-    });
-} else {
-    printServerInfo('http://'+os.hostname() );
-}
-
-var respond = function(status, data, response) {
-	contentType = 'text/plain';
-	response.writeHead(status, {'Content-Type': contentType});
-	!!data && response.write(data);
-	response.end();
-}
-
-
-function printServerInfo(url) {
-    console.log('Up and running @ ' + url);
-}
-
-function getToken(apiKey, result, response) {
-    var options = {
-        host: 'api.cognitive.microsoft.com',
-        path: '/sts/v1.0/issueToken',
-        method: 'POST',
-         headers: {
-            'Content-type': 'application/x-www-form-urlencoded',
-            'Content-Length': '0',
-            'Ocp-Apim-Subscription-Key': apiKey
-        }
-    };
-    var callback = function(response) {
-      var token = ''
-      response.on('data', function (chunk) {
-        token += chunk;
-      });
-
-      response.on('end', function () {
-        result(token);
-      });
-    }
-
-    var issueTokenRequest = https.request(options, callback);
-    issueTokenRequest.end();
-}
-
-/* extra functions */
-
-var express = require('express');
-var app = express();
-var ejsLayouts = require("express-ejs-layouts");
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
-var Room = require('./room.js');
-var ExpressPeerServer = require('peer').ExpressPeerServer;
-
-const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser');
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cookieParser());
+const express = require('express'),
+      app = express(),
+      ejsLayouts = require("express-ejs-layouts"),
+      http = require('http').Server(app),
+      io = require('socket.io')(http),
+      Room = require('./room.js'),
+      ExpressPeerServer = require('peer').ExpressPeerServer,
+	  bodyParser = require('body-parser'), 
+	  cookieParser = require('cookie-parser'),
+	  config = require('./config/config.json');
 
 var options = {
     debug: true
 };
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
 app.use('/peerjs', ExpressPeerServer(http, options));
 app.set('views', __dirname + '/views');
 app.engine('ejs', require('express-ejs-extend'));
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public'));
 app.use(ejsLayouts);
-var config = require('./config/config.json');
 
 app.set('port', config.port||3000);
 http.listen(app.get('port'), function() {
   console.log('Http magic is happening on port ' + app.get('port'));
 });
 
-var cluster = {};
-var members = {};
-var cookieName = "username";
+var cluster = {},
+    members = {},
+    cookieName = "username";
 
 app.get('/', function(req, res) {
 	res.render('home');
