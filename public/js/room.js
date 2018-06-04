@@ -9,7 +9,8 @@ peer.on('call', function(call) {
   navigator.getUserMedia({video: true, audio: true}, function(stream) {
     call.answer(stream); // Answer the call with an A/V stream.
     call.on('stream', function(remoteStream) {
-      // Show stream in some video/canvas element.
+      var media = document.getElementById('media');
+    	media.src = window.url.createObjectURL(remoteStream);
       console.log("received");
     });
   }, function(err) {
