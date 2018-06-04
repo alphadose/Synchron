@@ -26,7 +26,7 @@ app.get('/create', function(req, res) {
 		socket.on('peerId', function(id) {
 			var room = new Room(id);
 			cluster[socket.id] = room;
-			socket.emit('sendRoomId', socket.id);
+			socket.emit('sendUrl', config.url + "/room/" + socket.id);
 		});
 	});
 });
