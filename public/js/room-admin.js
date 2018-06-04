@@ -19,17 +19,3 @@ socket.on('sendUrl', function(url) {
 		$("#copy-btn").trigger("click");
 	});
 })
-
-socket.on('addPeer', function(id) {
-	navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
-	navigator.getUserMedia({video: true, audio: true}, function(stream) {
-		var call = peer.call(id, stream);
-		call.on('stream', function(remoteStream) {
-    		var media = document.getElementById('media');
-    		media.src = window.url.createObjectURL(remoteStream);
-  		});
-	},
-	function(err) {
-  		console.log('Failed to get local stream' ,err);
-	});
-})
