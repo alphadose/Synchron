@@ -2,14 +2,15 @@ var peer = new Peer({key : '2pr6j8fsr9roogvi'});
 var peerId;
 var calls = [];
 navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
-var mediaDiv = '<video width="320" height="240" class = "media" controls';
+var mediaDiv = '<video width="320" height="240" class = "media" controls autoplay ';
 var numOfPeers = 0;
 
 peer.on('open', async function(id) {
+  console.log(socket.id);
   peerId = id;
   await getStream();
 	socket.emit('peerId', id);
-  await listenForCall();
+  listenForCall();
   socket.on('addPeer', function(id) {
     callPeer(id);
   })
@@ -26,25 +27,30 @@ function getStream() {
 }
 
 function listenForCall() {
+  console.log("listening");
   peer.on('call', function(call) {
     call.answer(window.localStream);
     call.on('stream', function(remoteStream) {
+      console.log("listening and got stream");
       addMedia(remoteStream);
     });
   });
 }
 
 function callPeer(id) {
-  calls.push(peer.call(id, window.localStream));
-  calls[calls.length - 1].on('stream', function(remoteStream) {
+  console.log("calling");
+  var call = peer.call(id, window.localStream);
+  calls[numOfPeers] = call;
+  calls[numOfPeers].on('stream', function(remoteStream) {
+    console.log("calling and got stream");
+    //calls[numOfPeers].on('stream', function(remoteStream) {
     addMedia(remoteStream);
   });
 }
 
 function addMedia(remoteStream) {
   numOfPeers++;
-  mediaDiv += 'id = ' + '"' + numOfPeers + '">';
-  $("body").append(mediaDiv);
+  $("body").append(mediaDiv + 'id = ' + '"' + numOfPeers + '">');
   $("#" + numOfPeers).prop("src", URL.createObjectURL(remoteStream));
 }
   /*
