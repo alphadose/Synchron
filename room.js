@@ -4,6 +4,7 @@ function Room(socketId, peerId) {
 	this.admin = peerId;
 	this.members = [];
 	this.members.push(peerId);
+	this.load = 0;
 }
 
 Room.prototype.addMember = function(id) {
