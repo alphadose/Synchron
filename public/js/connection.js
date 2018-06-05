@@ -12,6 +12,7 @@ peer.on('open', async function(id) {
 	socket.emit('peerId', id);
   listenForCall();
   socket.on('addPeer', function(id) {
+    console.log("emitted");
     callPeer(id);
   })
 })
@@ -49,6 +50,7 @@ function callPeer(id) {
 }
 
 function addMedia(remoteStream) {
+  console.log("number is " + numOfPeers);
   numOfPeers++;
   $("body").append(mediaDiv + 'id = ' + '"' + numOfPeers + '">');
   $("#" + numOfPeers).prop("src", URL.createObjectURL(remoteStream));
