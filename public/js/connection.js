@@ -2,7 +2,8 @@ var peer = new Peer({key : '2pr6j8fsr9roogvi'});
 var peerId;
 var calls = [];
 navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
-var mediaDiv = '<video width="320" height="240" class = "media" controls autoplay ';
+//var mediaDiv = '<video width="320" height="240" class = "media" controls autoplay ';
+var mediaDiv = '<audio class = "media" controls autoplay ';
 var numOfPeers = 0;
 
 peer.on('open', async function(id) {
@@ -12,9 +13,9 @@ peer.on('open', async function(id) {
 })
 
 function getStream(id) {
-  navigator.getUserMedia({video: true, audio: true}, function(stream) {
+  navigator.getUserMedia({video: false, audio: true}, function(stream) {
     window.localStream = stream;
-    $("#self").prop("src", URL.createObjectURL(stream));
+    //$("#self").prop("src", URL.createObjectURL(stream));
     connectWithPeers(id);
   },
   function(err) {
