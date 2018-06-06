@@ -40,7 +40,7 @@ async function add(url='audio/example.mp3') {
 
 async function next() {
 
-  socket.emit('clear');
+  socket.emit('clear', roomId);
   source.onended = null;
 
   if (playing === 1)
@@ -64,7 +64,7 @@ async function synchronise(bufferList) {
   source.buffer = bufferList[0];
 
   await source.connect(context.destination);
-  socket.emit('standby');
+  socket.emit('standby', roomId);
 
 }
 

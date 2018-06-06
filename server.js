@@ -17,6 +17,7 @@ http.listen(app.get('port'), function() {
 });
 
 var cluster = {};
+var members = {};
 
 app.get('/', function(req, res) {
 	res.render('home');
@@ -44,6 +45,7 @@ io.on('connection', function(socket) {
 		
 		if (data.type == "admin") {
 			socket.on('peerId', function(id) {
+				members[socket.id] = socket.id;
 				room = new Room(socket.id, id);
 				cluster[socket.id] = room;
 				socket.join(room.name);
@@ -53,6 +55,7 @@ io.on('connection', function(socket) {
 
 		else if (data.type == "member") {
 			var roomId = data.url;
+			members[socket.id] = roomId;
 			room = cluster[roomId];
 			socket.join(roomId);
 			socket.on('peerId', function(id) {
@@ -65,11 +68,11 @@ io.on('connection', function(socket) {
 
    socket.on('disconnect', function(){
     console.log('user disconnected');
-    connectCounter--;
+    cluster[members[socket.id]].load--;
   });
 
-  socket.on('function', function(action, roomId){
-    io.in(cluster[roomId]).emit('execute', action);
+  socket.on('function', function(data){
+    io.in(cluster[data.roomId]).emit('execute', data.action);
   });
 
   socket.on('clear', function(roomId){
