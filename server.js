@@ -5,6 +5,9 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var Room = require('./room.js');
 
+const bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({ extended: true }));
+
 app.set('views', __dirname + '/views');
 app.engine('ejs', require('express-ejs-extend'));
 app.set('view engine', 'ejs');
@@ -33,15 +36,19 @@ app.get('/room', function(req, res) {
 })
 
 app.post('/create', function(req, res) {
-	res.render('room-admin');
+	res.render('room-admin', { username : req.body.username });
 });
 
 app.post('/room', function(req, res) {
-	res.render('join', {cluster : cluster});
+	res.render('join', {
+		cluster : cluster,
+		username : req.body.username
+	});
 })
 
 app.get('/room/:id', function(req,  res) {
 	var roomId = req.params.id;
+	var username = req.params.username;
 	if (cluster[roomId] !== undefined) {
 		res.render('room', {
 			'roomId' : roomId
