@@ -1,18 +1,15 @@
+<link rel="stylesheet" type="text/css" href="/css/home.css">
+<div class="container">
+<div id = "title">
+	MusicVR
+</div>
 <div id = "menu-div">
-	<div class = "menu-item" id = "create-room-div">
 		<form action = "/create" method = "get">
-			<input type = "submit" value = "Create Room">
+			<input type = "submit" class="btn menu-item" value = "CREATE ROOM">
 		</form>
 		<form action = "/room" method = "get">
-			<input type = "submit" value = "Join Room">
+			<input type = "submit" class = "btn menu-item" value = "JOIN ROOM">
 		</form>
-	</div>
-<!--
-	<div class = "menu-item" id = "join-room-div">
-		<form action = "/join" method="get">
-			<input type="submit" value = "Join Room"></input>
-		</form>
-	</div>
--->
+</div>
 </div>
 <script type="text/javascript" src="./js/home.js"></script>
