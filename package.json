@@ -20,9 +20,10 @@
   "dependencies": {
     "ejs": "^2.5.7",
     "express": "^4.16.2",
+    "express-ejs-extend": "0.0.1",
     "express-ejs-layouts": "^2.3.1",
     "http": "0.0.0",
-    "sweetalert": "^2.1.0",
-    "socket.io": "^2.0.4"
+    "socket.io": "^2.0.4",
+    "sweetalert": "^2.1.0"
   }
 }

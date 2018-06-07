@@ -6,6 +6,7 @@ var io = require('socket.io')(http);
 var Room = require('./room.js');
 
 app.set('views', __dirname + '/views');
+app.engine('ejs', require('express-ejs-extend'));
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public'));
 app.use(ejsLayouts);

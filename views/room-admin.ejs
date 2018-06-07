@@ -1,13 +1,9 @@
+<% extend('player') %>
 <!-- A dirty hack for the clipboard -->
 <button class = "btn" class = "hidden" id = "copy-btn" style = "display: none;"></button>
 
 <!--<video width="320" height="240" class = "media" id = "self" control muted autoplay>
 </video>-->
-
-<button id="pause" onclick="player('pauseres');">Pause</button>
-<button id="play" onclick="player('fetch');">Play</button>
-<button id="add" onclick="player('add');">Add</button>
-<button id="next" onclick="player('next');">Next</button>
 
 <script type="text/javascript" src="/js/peer.min.js"></script>
 <script type="text/javascript" src="/socket.io/socket.io.js"></script>
