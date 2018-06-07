@@ -1,12 +1,17 @@
+<link rel="stylesheet" type="text/css" href="/css/join.css">
 <div id = "room-list">
 	<% for (room in cluster) {%>
 		<div class = "room">
-			<a href="/room/<%=cluster[room].name%>/">
-				<%= cluster[room].name %>
-			</a>
+			<div id = "name">
+				<a href="/room/<%=cluster[room].name%>/">
+					<%= cluster[room].name %>
+				</a>
+			</div>
+			<div id = "strength">
+				No. of members : <%= cluster[room].strength %>
+			</div>
 		</div>
 	<% } %>
 </div>
 <script type="text/javascript">
-
 </script>
