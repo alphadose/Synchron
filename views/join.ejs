@@ -1,4 +1,7 @@
 <link rel="stylesheet" type="text/css" href="/css/join.css">
+<div id = "title">
+	AVAILABLE ROOMS
+</div>
 <div id = "room-list">
 	<% for (room in cluster) {%>
 		<div class = "room">
@@ -10,6 +13,15 @@
 			<div id = "strength">
 				No. of members : <%= cluster[room].strength %>
 			</div>
+			<div id = "members">
+				Members:
+				<ul>
+					<% for (member in cluster[room].members) { %>
+						<li>
+							<%= cluster[room].members[member]%>
+						</li>
+					<% } %>
+				</ul>
 		</div>
 	<% } %>
 </div>
