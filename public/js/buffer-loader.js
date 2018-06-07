@@ -1,5 +1,3 @@
-var duration;
-
 function BufferLoader(context, urlList, callback) {
   this.context = context;
   this.urlList = urlList;
@@ -25,7 +23,6 @@ BufferLoader.prototype.loadBuffer = function(url, index) {
           alert('error decoding file data: ' + url);
           return;
         }
-        duration = (buffer.duration+2)*1000;
         loader.bufferList[index] = buffer;
         if (++loader.loadCount == loader.urlList.length)
           loader.onload(loader.bufferList);
