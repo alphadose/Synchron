@@ -1,13 +1,13 @@
 body {
 	background-color: #ddd;
 	font-family: 'Open Sans', sans-serif;
-	color: #444;
+	color: #ddd;
 }
 
 #topbar {
 	font-family: 'Open Sans', sans-serif;
 	font-size: 4em;
-	color: black;
+	color: #ddd;
 }
 
 .container {
@@ -26,12 +26,15 @@ body {
 	position: relative;
 	margin-left: 2em;
 	margin-top: 1em;
+	margin-bottom: 1em;
 }
 
 #room-list {
 	position: relative;
 	margin-left: 4em;
 	margin-right: 8em;
+	border: solid 1px;
+	border-radius: 10px;
 }
 
 a {
@@ -40,22 +43,21 @@ a {
 
 #room-url {
 	font-size: 1.5em;
-	color: rgb(239,45,94);
+	color: #fff78c;
 }
 
 .room {
 	padding: 1em;
-	background-color: #4286f4;
 	margin-top: 1em;
 	margin-bottom: 1em;
 	border-radius: 10px;
-	color: #ddd;
+	color: #aaa;
+}
+
+.room:hover {
+
 }
 
 ul {
 	margin-top: 0;
-}
-
-.room:hover {
-	transform: translate(2px, 2px);
 }
