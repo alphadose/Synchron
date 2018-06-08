@@ -1,38 +1,42 @@
 <link rel="stylesheet" type="text/css" href="/css/join.css">
 
-<div id = "welcome">
-	<%= username %>
+<div class = "container">
+	<div id = "topbar">
+		Welcome <span id = "username"><%= username %>!</span>
+	</div>
+
+	<form style="display: none;">
+		<input name="username" value="<%= username %>">
+	</form>
+
+	<div id = "title">
+		AVAILABLE ROOMS
+	</div>
+	<div id = "room-list">
+		<% for (room in cluster) {%>
+			<div class = "room">
+				<div id = "name">
+					<a href="/room/<%=cluster[room].name%>/">
+						<%= cluster[room].name %>
+					</a>
+				</div>
+				<div id = "strength">
+					No. of members : <%= cluster[room].strength %>
+				</div>
+				<div id = "members">
+					Members:
+					<ul>
+						<% for (member in cluster[room].members) { %>
+							<li>
+								<%= cluster[room].members[member]%>
+							</li>
+						<% } %>
+					</ul>
+				</div>
+			</div>
+		<% } %>
+	</div>
 </div>
 
-<form style="display: none;">
-	<input name="username" value="<%= username %>">
-</form>
-
-<div id = "title">
-	AVAILABLE ROOMS
-</div>
-<div id = "room-list">
-	<% for (room in cluster) {%>
-		<div class = "room">
-			<div id = "name">
-				<a href="/room/<%=cluster[room].name%>/">
-					<%= cluster[room].name %>
-				</a>
-			</div>
-			<div id = "strength">
-				No. of members : <%= cluster[room].strength %>
-			</div>
-			<div id = "members">
-				Members:
-				<ul>
-					<% for (member in cluster[room].members) { %>
-						<li>
-							<%= cluster[room].members[member]%>
-						</li>
-					<% } %>
-				</ul>
-		</div>
-	<% } %>
-</div>
 <script type="text/javascript">
 </script>
