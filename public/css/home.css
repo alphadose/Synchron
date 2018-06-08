@@ -57,7 +57,5 @@ input {
 
 .btn:hover {
 	transform: translateY(-2%);
-	box-shadow: 2px 2px #555;
-	opacity: 0.5;
 	cursor: pointer;
 }
