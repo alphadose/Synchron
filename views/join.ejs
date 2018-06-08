@@ -13,7 +13,7 @@
 			<div class = "room">
 				<div id = "name">
 					<a href="/room/<%=cluster[room].name%>/">
-						<%= cluster[room].name %>
+						<%= cluster[room].roomHandle %>
 					</a>
 				</div>
 				<div id = "strength">
@@ -35,5 +35,5 @@
 </div>
 
 <script type="text/javascript">
-	console.log(document.cookie);
+	var username = getCookie("username");
 </script>

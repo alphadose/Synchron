@@ -8,10 +8,12 @@
 <script type="text/javascript" src="/js/peer.min.js"></script>
 <script type="text/javascript" src="/socket.io/socket.io.js"></script>
 <script type="text/javascript">
+	var username = getCookie("username");
 	var socket = io();
 	socket.emit('type', {
 		type : 'admin',
-		url : 'create'
+		url : 'create',
+		username : username
 	});
 </script>
 <script type="text/javascript" src = "/js/room-admin.js"></script>
