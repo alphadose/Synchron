@@ -5,15 +5,16 @@
 		Welcome <span id = "username"><%= username %>!</span>
 	</div>
 
-	<div id = "title">
-		AVAILABLE ROOMS
-	</div>
+		<div id = "title">
+			AVAILABLE ROOMS
+		</div>
+
 	<div id = "room-list">
 		<% for (room in cluster) {%>
 			<div class = "room">
 				<div id = "name">
 					<a href="/room/<%=cluster[room].name%>/">
-						<%= cluster[room].roomHandle %>
+						<span id = "room-url"><%= cluster[room].roomHandle %></span>
 					</a>
 				</div>
 				<div id = "strength">
@@ -36,4 +37,10 @@
 
 <script type="text/javascript">
 	var username = getCookie("username");
+	var htmlstring = document.getElementById("room-list").innerHTML;
+	htmlstring = (htmlstring.trim) ? htmlstring.trim() : htmlstring.replace(/^\s+/,'');
+
+	if (htmlstring == '') {
+		document.getElementById("room-list").innerHTML = "There are no available rooms."
+	}
 </script>

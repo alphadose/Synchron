@@ -6,7 +6,7 @@ body {
 
 #topbar {
 	font-family: 'Open Sans', sans-serif;
-	font-size: 3em;
+	font-size: 4em;
 	color: black;
 }
 
@@ -18,18 +18,36 @@ body {
 }
 
 #username {
-	color: #ef2d5e
+	color: #ef2d5e;
 }
 
 #title {
-	font-size: 1.5em;
+	font-size: 2em;
 	position: relative;
 	margin-left: 2em;
-	margin-top: 2em;
+	margin-top: 1em;
 }
 
 #room-list {
 	position: relative;
 	margin-left: 6em;
+	margin-right: 6em;
+}
+
+a {
+	text-decoration: none;
+	color: #ef2d5e;
+}
+
+#room-url {
+	font-size: 1.5em;
+}
+
+.room {
+	padding: 1em;
+	background-color: yellow;
 	margin-top: 1em;
+	margin-bottom: 1em;
+	opacity: 0.5;
+	border-radius: 10px;
 }
