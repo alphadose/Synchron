@@ -6,6 +6,19 @@ function BufferLoader(context, urlList, callback) {
   this.loadCount = 0;
 }
 
+function loadJSON(callback, url) {   
+
+    var request = new XMLHttpRequest();
+        request.overrideMimeType("application/json");
+    request.open('GET', url, true);
+    request.onreadystatechange = function () {
+          if (request.readyState == 4 && request.status == "200") {
+            callback(request.responseText);
+          }
+    };
+    request.send(null);  
+ }
+
 BufferLoader.prototype.loadBuffer = function(url, index) {
   // Load buffer asynchronously
   var request = new XMLHttpRequest();
@@ -20,7 +33,7 @@ BufferLoader.prototype.loadBuffer = function(url, index) {
       request.response,
       function(buffer) {
         if (!buffer) {
-          alert('error decoding file data: ' + url);
+          toast('error decoding file data: ' + url);
           return;
         }
         loader.bufferList[index] = buffer;
@@ -34,7 +47,7 @@ BufferLoader.prototype.loadBuffer = function(url, index) {
   }
 
   request.onerror = function() {
-    alert('BufferLoader: XHR error');
+    toast('BufferLoader: XHR error');
   }
 
   request.send();
