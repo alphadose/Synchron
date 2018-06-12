@@ -9,6 +9,7 @@ var timer;
 var originalTime;
 var pauseTime = 0;
 var source;
+var indexOfSong = 0;
 
 let noOfSpeaker = 2;
 
@@ -65,8 +66,20 @@ async function fetch() {
 }
 
 async function add(song='example') {
-
 	await queue.push(song);
+  let sceneEl = document.querySelector('#aframe-queue');
+  let entityEl = document.createElement('a-entity');
+  entityEl.setAttribute('geometry', {
+    primitive: 'box',
+    height: .5,
+    width: 2,
+    depth: 0,
+  });
+  entityEl.setAttribute('material', 'color', '#101010');
+  entityEl.setAttribute('position', { x: 0, y: 1.6 - .8 * indexOfSong++, z: .01 });
+  entityEl.setAttribute('text', { value: song, align: 'center', width: 6 });
+  sceneEl.appendChild(entityEl);
+
 	return toast("Added "+song+" to Queue");
 
 }
