@@ -34,8 +34,8 @@ async function fetch() {
     timer.clear();
 
   await loadJSON(function(response) {
-      subtitles = JSON.parse(response);
-   }, '/audio/example.json');
+    subtitles = JSON.parse(response);
+  }, '/audio/example.json');
 
   queue.splice(0,1);
   bufferLoader.load();
@@ -63,7 +63,7 @@ async function next() {
   }
 
   susresBtn.textContent = 'Pause';
-	await fetch();
+  await fetch();
 
   if (context.state === 'suspended')
     context.resume(); 
@@ -83,14 +83,14 @@ async function synchronise(bufferList) {
 
 async function finishedLoading() {
 
-    if ( playing === 0 )
-      source.start(0);
+  if ( playing === 0 )
+    source.start(0);
 
-    timer = await new InvervalTimer(function () {
-      displaySubtitles(subtitles);
-    }, 200);
+  timer = await new InvervalTimer(function () {
+    displaySubtitles(subtitles);
+  }, 200);
 
-    playing = 1;
+  playing = 1;
 
 }
 
@@ -122,66 +122,75 @@ function toast(message, timeout=2000) {
 
   var x = document.getElementById("snackbar")
   x.innerHTML = message;
+        document.getElementById("fixed-snackbar").setAttribute("text", {
+          value: message
+        })
 
   x.className = "show";
 
   setTimeout(function(){ x.className = x.className.replace("show", ""); }, timeout);
+        setTimeout(function(){        
+         document.getElementById("fixed-snackbar").setAttribute("text", {
+          value: ''
+        })}, timeout);
 }
 
 function InvervalTimer(callback, interval) {
 
-    var timerId, startTime, remaining = 0;
+  var timerId, startTime, remaining = 0;
     var state = 0; //  0 = idle, 1 = running, 2 = paused, 3= resumed
     originalTime = new Date().getTime()/1000;
 
     this.pause = function () {
-        if (state != 1) return;
+      if (state != 1) return;
 
-        remaining = interval - (new Date() - startTime);
-        window.clearInterval(timerId);
-        state = 2;
+      remaining = interval - (new Date() - startTime);
+      window.clearInterval(timerId);
+      state = 2;
     };
 
     this.clear = function () {
-        window.clearInterval(timerId);
+      window.clearInterval(timerId);
     };
 
     this.resume = function () {
-        if (state != 2) return;
+      if (state != 2) return;
 
-        state = 3;
-        window.setTimeout(this.timeoutCallback, remaining);
+      state = 3;
+      window.setTimeout(this.timeoutCallback, remaining);
     };
 
     this.timeoutCallback = function () {
-        if (state != 3) return;
+      if (state != 3) return;
 
-        callback();
+      callback();
 
-        startTime = new Date();
-        timerId = window.setInterval(callback, interval);
-        state = 1;
+      startTime = new Date();
+      timerId = window.setInterval(callback, interval);
+      state = 1;
     };
 
     startTime = new Date();
     timerId = window.setInterval(callback, interval);
     state = 1;
-}
+  }
 
-async function displaySubtitles(subs) {
+  async function displaySubtitles(subs) {
 
-  var t = new Date().getTime()/1000 - originalTime;
-  var n = document.getElementById("subs");
+    var t = new Date().getTime()/1000 - originalTime;
+    var n = document.getElementById("subs");
 
-  console.log(t);
+    console.log(t);
 
-  subtitles.forEach(function(element, index, array) {
+    subtitles.forEach(function(element, index, array) {
 
-    if( t >= element.start && t <= element.end ) {
+      if( t >= element.start && t <= element.end ) {
 
-        n.innerHTML = element.text;
+        document.getElementById("subs").setAttribute("text", {
+          value: element.text
+        })
 
-    }
-    
-  });
-}
+      }
+
+    });
+  }
