@@ -8,6 +8,7 @@ var susresBtn = document.getElementById("pause");
 var timer;
 var originalTime;
 var pauseTime = 0;
+var source;
 
 let noOfSpeaker = 2;
 
@@ -29,21 +30,6 @@ function init() {
   // Fix up prefixing
   window.AudioContext = window.AudioContext || window.webkitAudioContext;
   context = new AudioContext();
-  songbird = new Songbird(context);
-  var dimensions = {
-    width: 3.1,
-    height: 2.5,
-    depth: 3.4
-  };
-  var materials = {
-    left: 'curtain-heavy',
-    right: 'curtain-heavy',
-    front: 'curtain-heavy',
-    back: 'curtain-heavy',
-    down: 'grass',
-    up: 'transparent'
-  };
-  songbird.setRoomProperties(dimensions, materials);
 }
 
 async function fetch() {
@@ -83,13 +69,10 @@ async function next() {
 
   socket.emit('clear', roomId);
 
-  if (audioElements.length)
-    for (i = 0; i < noOfSpeaker; i++)
-      audioElements[i].onended = null;
+  source.onended = null;
 
   if (playing === 1) {
-    for (i = 0; i < noOfSpeaker; i++)
-      audioElements[i].stop();
+    source.stop();
     playing = 0;
   }
 
@@ -104,33 +87,11 @@ async function next() {
 
 async function synchronise(bufferList) {
 
-  await songbird.output.connect(context.destination);
+  source = await context.createBufferSource();
+  source.onended = next;
+  source.buffer = bufferList[0];
 
-  bufferListSongs = bufferList;
-  for (i = 0; i < noOfSpeaker; i++) {
-    audioElements[i] = await context.createBufferSource();
-    audioElements[i].buffer = bufferListSongs[0];
-  }
-
-  for (let i = 0; i < noOfSpeaker; i++) {
-    soundSources[i] = songbird.createSource();
-    audioElements[i].connect(soundSources[i].input);
-  }
-  /* setpositionofspeaker */
-  for(i=0; i<noOfSpeaker; i++)
-    soundSources[i].setPosition(speakerPos[i.toString()].x, speakerPos[i.toString()].y, speakerPos[i.toString()].z);
-
-  let gain = context.createGain();
-  gain.gain.value = 1 / (2 * noOfSpeaker);
-  songbird.output.connect(gain);
-  gain.connect(context.destination);
-  console.log("called");
-  console.log(audioElements);
-  for (i = 0; i < noOfSpeaker; i++) {
-    //audioElements[i].start(0);
-  }
-  exec = true;
-
+  await source.connect(context.destination);
   socket.emit('standby', roomId);
 
 }
@@ -138,9 +99,7 @@ async function synchronise(bufferList) {
 async function finishedLoading() {
 
   if (playing === 0)
-  for(i=0; i<noOfSpeaker; i++){
-    audioElements[i].start(0);
-  }
+      source.start(0);
 
   timer = await new InvervalTimer(function () {
     displaySubtitles(subtitles);
