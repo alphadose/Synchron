@@ -128,6 +128,8 @@
   <a-camera listener>
     <a-cursor position="0 0 -1" geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03" material="color: black; shader: flat">
       <a-entity position=".5 .7 -.01" id="fixed-snackbar" text="width: 2; color: white">
+      </a-entity>      
+      <a-entity position=".5 -.2 -.01" id="fixed-score" text="width: 2; color: white">
       </a-entity>
       <a-entity position=".5 -.7 -.01" id="subs" text="width: 2; color: white">
       </a-entity>
@@ -150,7 +152,7 @@
     sceneEl.appendChild(entityEl);
 
 
-    let songslistforplaying = ["example", "demon", "bloodstream", "blank"];
+    let songslistforplaying = ["Wake_Me_Up", "Demons", "Bloodstream", "Blank_Space"];
   for (i = 0; i < 4; i++) {
     let entityEl = document.createElement('a-entity');
     entityEl.setAttribute('geometry', {
@@ -163,7 +165,7 @@
     entityEl.setAttribute('id', songslistforplaying[i]);
     entityEl.setAttribute('playable-song', '' );
     entityEl.setAttribute('position', { x: 0, y: 1.6 - .8 * i, z: .01 });
-    entityEl.setAttribute('text', { value: songslistforplaying[i], align: 'center', width: 6 });
+    entityEl.setAttribute('text', { value: songslistforplaying[i] , align: 'center', width: 6 });
     sceneEl.appendChild(entityEl);
 }
 let queueEl = document.querySelector('#aframe-queue');
