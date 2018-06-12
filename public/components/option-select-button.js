@@ -24,9 +24,6 @@ AFRAME.registerComponent('option-select-button', {
             case "next":
             player('next')
             break;
-            case "list":
-            player('add')
-            break;
         }
 
     });
