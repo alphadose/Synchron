@@ -56,7 +56,7 @@ async function fetch() {
 
   bufferLoader = await new BufferLoader(
     context,
-    [queue[0]],
+    ['/audio/'+queue[0]+'.mp3'],
     synchronise
   );
 
@@ -65,17 +65,17 @@ async function fetch() {
 
   await loadJSON(function (response) {
     subtitles = JSON.parse(response);
-  }, '/audio/example.json');
+  }, '/audio/'+queue[0]+'.json');
 
   queue.splice(0, 1);
   bufferLoader.load();
 
 }
 
-async function add(url = '/audio/example.mp3') {
+async function add(song='example') {
 
-  await queue.push(url);
-  return toast("Added");
+	await queue.push(song);
+	return toast("Added");
 
 }
 
@@ -93,6 +93,7 @@ async function next() {
     playing = 0;
   }
 
+  //Change this
   susresBtn.textContent = 'Pause';
   await fetch();
 
@@ -156,8 +157,8 @@ async function pauseres() {
       if (typeof timer !== 'undefined')
         timer.pause();
       if (typeof pauseTime !== 'undefined')
-        pauseTime = new Date().getTime() / 1000;
-      susresBtn.textContent = 'Resume';
+        pauseTime = new Date().getTime()/1000;
+      susresBtn.textContent = 'Resume'; //Change this
 
     });
 
@@ -166,9 +167,8 @@ async function pauseres() {
       if (typeof timer !== 'undefined')
         timer.resume();
       if (typeof originalTime !== 'undefined' && typeof pauseTime !== 'undefined')
-        originalTime += (new Date().getTime() / 1000 - pauseTime);
-      susresBtn.textContent = 'Pause';
-
+        originalTime+= (new Date().getTime()/1000 - pauseTime);
+      susresBtn.textContent = 'Pause';//Change this
     });
   }
 }

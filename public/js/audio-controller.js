@@ -1,8 +1,10 @@
-async function player(action) {
+async function player(action, song='example') {
+
 
 	socket.emit('function', {
         action : action,
-        roomId : roomId
+        roomId : roomId,
+        song : song
     });
 
 }
@@ -13,9 +15,9 @@ socket.on('go', function(){
 
 });
 
-socket.on('execute', function(action){
+socket.on('execute', function(data){
 
-    switch(action) {
+    switch(data.action) {
 
     	case "pauseres":
     		pauseres();
@@ -26,7 +28,7 @@ socket.on('execute', function(action){
     		break;
 
     	case "add":
-    		add();
+    		add(data.song);
     		break;
 
     	case "next":
