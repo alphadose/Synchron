@@ -117,8 +117,9 @@ io.on('connection', function(socket) {
 			socket.join(roomId);
 			socket.on('peerId', function(id) {
 				console.log("emitted by " + id);
+				if( typeof room !== 'undefined'){
 				socket.broadcast.to(room.name).emit('addPeer', id);
-				room.addMember(id, data.username);
+				room.addMember(id, data.username);}
 			});
 		}
 	});
