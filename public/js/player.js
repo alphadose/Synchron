@@ -230,8 +230,6 @@ async function displaySubtitles(subs) {
   var t = new Date().getTime() / 1000 - originalTime;
   var n = document.getElementById("subs");
 
-  console.log(t);
-
   subtitles.forEach(function (element, index, array) {
 
     if (t >= element.start && t <= element.end) {
