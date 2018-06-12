@@ -175,20 +175,14 @@ async function pauseres() {
 
 function toast(message, timeout = 2000) {
 
-  var x = document.getElementById("snackbar")
-  x.innerHTML = message;
   document.getElementById("fixed-snackbar").setAttribute("text", {
     value: message
-  })
+  });
 
-  x.className = "show";
+  setTimeout(function(){        
+   document.getElementById("fixed-snackbar").setAttribute("text", {
+    value: '' })}, timeout);
 
-  setTimeout(function () { x.className = x.className.replace("show", ""); }, timeout);
-  setTimeout(function () {
-    document.getElementById("fixed-snackbar").setAttribute("text", {
-      value: ''
-    })
-  }, timeout);
 }
 
 function InvervalTimer(callback, interval) {
