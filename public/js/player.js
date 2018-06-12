@@ -4,7 +4,7 @@ var subtitles;
 var bufferLoader;
 var queue = [];
 var playing = 0;
-var susresBtn = document.getElementById("pause");
+//var susresBtn = document.getElementById("pause");
 var timer;
 var originalTime;
 var pauseTime = 0;
@@ -77,7 +77,7 @@ async function next() {
   }
 
   //Change this
-  susresBtn.textContent = 'Pause';
+  //susresBtn.textContent = 'Pause';
   await fetch();
 
   if (context.state === 'suspended')
@@ -117,7 +117,7 @@ async function pauseres() {
         timer.pause();
       if (typeof pauseTime !== 'undefined')
         pauseTime = new Date().getTime()/1000;
-      susresBtn.textContent = 'Resume'; //Change this
+      //susresBtn.textContent = 'Resume'; //Change this
 
     });
 
@@ -127,7 +127,7 @@ async function pauseres() {
         timer.resume();
       if (typeof originalTime !== 'undefined' && typeof pauseTime !== 'undefined')
         originalTime+= (new Date().getTime()/1000 - pauseTime);
-      susresBtn.textContent = 'Pause';//Change this
+      //susresBtn.textContent = 'Pause';//Change this
     });
   }
 }
