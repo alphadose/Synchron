@@ -1,3 +1,5 @@
+import { setTimeout } from "timers";
+
 function getUrlParams () {
   var match;
   var pl = /\+/g;  // Regex for replacing addition symbol with a space
@@ -76,7 +78,10 @@ AFRAME.registerComponent('instructions', {
     }
     var buttonLabelEl = this.startButtonEl.querySelector('span');
     buttonLabelEl.innerHTML = 'START';
-    this.toast("If using mobile, disable portrait lock.", 3000)
+    this.toast("You can now also see your friend as dummy model.", 3000)
+    setTimeout(function(){
+      this.toast("we are working on decreasing the bandwith and cpu utilisation", 3000)
+    },3000);
     buttonLabelEl.classList.remove('loading');
   },
 
