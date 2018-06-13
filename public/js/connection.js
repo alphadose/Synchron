@@ -1,4 +1,4 @@
-var peer = new Peer({host : 'localhost' , path : '/peerjs' ,port : '3000'});
+var peer = new Peer({key : '2pr6j8fsr9roogvi'});
 var peerId;
 var calls = [];
 navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
@@ -28,6 +28,8 @@ function connectWithPeers(id) {
   socket.on('addPeer', function(data) {
     let newMember = data.newMember;
     console.log(newMember + " joined");
+    addModel(newMember, data.position[0], data.position[1], data.position[2]);
+    toast(newMember+" has joined the room");
     callPeer(data.id);
   })  
 }
