@@ -105,8 +105,9 @@ io.on('connection', function(socket) {
 				room = new Room(socket.id, id, data.username);
 				cluster[socket.id] = room;
 				socket.join(room.name);
+				room.index--;
 			});
-		
+			
 			socket.emit('store', socket.id);
 		}
 
@@ -118,11 +119,20 @@ io.on('connection', function(socket) {
 			socket.on('peerId', function(id) {
 				console.log("emitted by " + id);
 				if( typeof room !== 'undefined'){
+				if(room.index < 0) room.index = 0;
 				socket.broadcast.to(room.name).emit('addPeer', {
 					id : id,
-					newMember : data.username
+					newMember : data.username,
+					position : room.positions[room.index]
 				});
-				room.addMember(id, data.username);}
+
+				socket.emit('getOthers', {
+					positions : room.positions.slice(room.index+1, 100)
+				});
+
+				room.index--;
+				room.addMember(id, data.username);
+				}
 			});
 		}
 	});
@@ -144,7 +154,7 @@ io.on('connection', function(socket) {
 
   socket.on('function', function(data){
 	console.log(data);
-console.log("emitting");
+	console.log("emitting");
     io.to(data.roomId).emit('execute', { action : data.action,
     									 song : data.song } );
   });
@@ -155,7 +165,7 @@ console.log("emitting");
   });
 
   socket.on('standby', function(roomId){
-console.log("roomid"+roomId);
+console.log("roomid="+roomId);
 console.log(cluster);
 
   	if (cluster[roomId] !== undefined) {
