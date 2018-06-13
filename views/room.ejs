@@ -2,13 +2,9 @@
 </video>-->
 <%- extend('player2') %>
 
-<script type="text/javascript" src="/js/peer.js
-"></script>
-<script type="text/javascript" src="/socket.io/socket.io.js"></script>
 <script type="text/javascript">
 	var url = "<%= roomId %>";
 	var username = getCookie("username");
-	var socket = io("https://synchron.ml");
 	socket.emit('type', {
 		type : 'member',
 		url : url,
@@ -16,7 +12,3 @@
 	});
 	var roomId = url;
 </script>
-<script type="text/javascript" src = "/js/connection.js"></script>
-<script type="text/javascript" src="/js/buffer-loader.js"></script>
-<script type="text/javascript" src="/js/audio-controller.js"></script>
-<script type="text/javascript" src="/js/player.js"></script>
