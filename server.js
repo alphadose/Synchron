@@ -131,11 +131,7 @@ io.on('connection', function(socket) {
    	console.log(cluster);
    	console.log(members);
    	if (typeof cluster[members[socket.id]] !== 'undefined') {
-
-    cluster[members[socket.id]].strength--;
-
-    if ( cluster[members[socket.id]].load > 0 )
-    	cluster[members[socket.id]].load--;
+   		cluster[members[socket.id]].removeMember(socket.id);
 
     if ( cluster[members[socket.id]].strength === 0 )
     	await delete cluster[members[socket.id]];
