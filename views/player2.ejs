@@ -37,9 +37,7 @@
 
 
   <a-/assets timeout="8000">
-    <img src="/assets/room/tv.png">
     <a-asset-item id="set-obj" src="/assets/room/set.gltf"></a-asset-item>
-    <img src="/assets/room/set.jpg">
     <a-asset-item id="floor-obj" src="/assets/room/floor.gltf"></a-asset-item>
     <img id="flooroff-mtl" src="/assets/room/flooroff.png">
     <a-asset-item id="spotlight-obj" src="/assets/room/spotlight.gltf"></a-asset-item>
@@ -134,11 +132,11 @@
 
   <a-camera listener>
     <a-cursor position="0 0 -1" geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03" material="color: black; shader: flat">
-      <a-entity position="0 .7 -.01" id="fixed-snackbar" text="width: 1; color: white">
+      <a-entity position="0 .7 -.1" id="fixed-snackbar" text="width: 1; color: white">
       </a-entity>
-      <a-entity position="0 -.2 -.01" id="fixed-score" text="width: 1; color: white">
+      <a-entity position="0 -.2 -.1" id="fixed-score" text="width: 1; color: white">
       </a-entity>
-      <a-entity position="0 -.7 -.01" id="subs" text="width: 1; color: white">
+      <a-entity position="0 -.7 -.1" id="subs" text="width: 1.4; color: white">
       </a-entity>
     </a-cursor>
   </a-camera>
