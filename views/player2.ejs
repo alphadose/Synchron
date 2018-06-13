@@ -188,6 +188,15 @@
 //   document.getElementById("subs").setAttribute("rotation", {z: 0, x:0 ,y:0});
 // }
 // }, 1000);
+function getAngleDeg(z,x) {
+  if(x==0  && z ==0 ){
+    return 0;
+  } else{
+    var angleRad = Math.atan(z/x);
+    var angleDeg = angleRad * 180 / Math.PI;
+    return(angleDeg);
+  }
+}
 
 function addModel(name, xl,yl,zl){
 
@@ -195,17 +204,18 @@ let modeltobe = document.createElement("a-entity");
 
 let container = document.createElement("a-entity");
 container.setAttribute("position", {x:xl ,y: yl ,z: zl});
+let anglevalue = getAngleDeg(zl,xl);
 
-modeltobe.setAttribute("json-model", {src: 'char_final.json' ,x:xl ,y: yl ,z: zl});
+modeltobe.setAttribute("json-model", {src: 'char_final.json' ,x:xl ,y: yl ,z: zl ,anglevalue});
 
 container.appendChild(modeltobe);
 let namemodel = document.createElement("a-entity");
 namemodel.setAttribute("position", {y: 2});
+namemodel.setAttribute("rotation", {y: 360 - anglevalue });
 namemodel.setAttribute("text" , {value: name ,width:3 ,align: 'center'});
 container.appendChild(namemodel);
 
 document.getElementById("models-location").appendChild(container);
 }
-
 </script>
 <%- content %>
