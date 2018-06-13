@@ -57,7 +57,17 @@ AFRAME.registerComponent('instructions', {
       this.handleDanceData(defaultDanceData);
     }
   },
+  toast : function (message, timeout = 2000, defaultTag = "fixed-snackbar") {
 
+    document.getElementById(defaultTag).setAttribute("text", {
+      value: message
+    });
+
+    setTimeout(function(){
+     document.getElementById(defaultTag).setAttribute("text", {
+      value: '' })}, timeout);
+
+  },
   setupStartButton: function () {
     var sceneEl = document.querySelector('a-scene');
     if (!sceneEl.hasLoaded) {
@@ -66,6 +76,7 @@ AFRAME.registerComponent('instructions', {
     }
     var buttonLabelEl = this.startButtonEl.querySelector('span');
     buttonLabelEl.innerHTML = 'START';
+    this.toast("If using mobile, disable portrait lock.", 3000)
     buttonLabelEl.classList.remove('loading');
   },
 
