@@ -11,7 +11,7 @@
   <script src='/js/connection.js'> </script>
   <script src='/js/player.js'> </script>
   <script src='/js/bundle.js'> </script>
-
+  <script src='/components/json-model.js'> </script>
 </head>
 
 <div class="instructions" class="hide">
@@ -32,7 +32,8 @@
     <a-asset-item id="spotlight-obj" src="/assets/room/spotlight.gltf"></a-asset-item>
     <img id="spotlight-img" src="/assets/room/spotlight.png">
   </a-/assets>
-
+  <a-entity id="models-location">
+  </a-entity>
   <a-plane scale=".5 .3 1" id="song-tv" emit-close width="6.2" height="7.2" color="black" rotation="0 0 0" position="-.5 1.8 -3.76">
     <a-plane width="6" height="6.5" color="#404040" rotation="0 0 0" position="0.01 0 .01">
 
@@ -187,5 +188,24 @@
 //   document.getElementById("subs").setAttribute("rotation", {z: 0, x:0 ,y:0});
 // }
 // }, 1000);
+
+function addModel(name, xl,yl,zl){
+
+let modeltobe = document.createElement("a-entity");
+
+let container = document.createElement("a-entity");
+container.setAttribute("position", {x:xl ,y: yl ,z: zl});
+
+modeltobe.setAttribute("json-model", {src: 'char_final.json' ,x:xl ,y: yl ,z: zl});
+
+container.appendChild(modeltobe);
+let namemodel = document.createElement("a-entity");
+namemodel.setAttribute("position", {y: 2});
+namemodel.setAttribute("text" , {value: name ,width:3 ,align: 'center'});
+container.appendChild(namemodel);
+
+document.getElementById("models-location").appendChild(container);
+}
+
 </script>
 <%- content %>
