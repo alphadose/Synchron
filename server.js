@@ -118,7 +118,10 @@ io.on('connection', function(socket) {
 			socket.on('peerId', function(id) {
 				console.log("emitted by " + id);
 				if( typeof room !== 'undefined'){
-				socket.broadcast.to(room.name).emit('addPeer', id);
+				socket.broadcast.to(room.name).emit('addPeer', {
+					id : id,
+					newMember : username
+				});
 				room.addMember(id, data.username);}
 			});
 		}
