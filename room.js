@@ -7,9 +7,9 @@ function Room(socketId, peerId, username) {
 	this.load = 0;
 	this.adminHandle = username;
 	this.roomHandle = username.toUpperCase() + "'s ROOM";
-	this.positions = [[-2,0,1],
+	this.positions = [[-1.7,0,-0.7],
 					  [0,0,1],
-					  [2,0,1]];
+					  [1.5,0,-0.5]];
 	this.index = 2;
 }
 
