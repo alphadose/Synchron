@@ -105,10 +105,10 @@ io.on('connection', function(socket) {
 				room = new Room(socket.id, id, data.username);
 				cluster[socket.id] = room;
 				socket.join(room.name);
+				socket.emit('store', { id : socket.id,
+								   	   pos : room.positions[room.index] });
 				room.index--;
-			});
-			
-			socket.emit('store', socket.id);
+			});		
 		}
 
 		else if (data.type == "member") {
@@ -127,7 +127,7 @@ io.on('connection', function(socket) {
 				});
 
 				socket.emit('getOthers', {
-					positions : room.positions.slice(room.index+1, 100),
+					positions : room.positions.slice(room.index, 100),
 					names : Object.values(room.members)
 				});
 

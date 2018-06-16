@@ -14,9 +14,11 @@
 	});
 	var roomId;
 
-	socket.on('store', function(id){
+	socket.on('store', function(data){
 
-		roomId = id;
-
+		roomId = data.id;
+		pos = data.pos;
+		console.log("positions are "+pos);
+		document.querySelector("a-camera").setAttribute("position", {x:pos[0] ,y: pos[1]+1.5 ,z: pos[2]});
 	});
 </script>
