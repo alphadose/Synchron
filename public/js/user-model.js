@@ -70,8 +70,9 @@ let modeltobe = document.createElement("a-entity");
 let container = document.createElement("a-entity");
 container.setAttribute("position", {x:xl ,y: yl ,z: zl});
 let anglevalue = getAngleDeg(zl,xl);
-
-modeltobe.setAttribute("json-model", {src: 'char_final.json' ,x:xl ,y: yl ,z: zl ,anglevalue});
+anglevalue-=90;
+console.log(anglevalue)
+modeltobe.setAttribute("json-model", {src: 'char_final.json' ,x:xl ,y: yl ,z: zl ,anglevalue:anglevalue});
 
 container.appendChild(modeltobe);
 let namemodel = document.createElement("a-entity");
