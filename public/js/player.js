@@ -15,7 +15,6 @@ let noOfSpeaker = 2;
 var audioElements = [];
 let soundSources = [];
 let audioReady = false;
-let exec = false;
 let position = null;
 let person = null;
 let bufferListSongs = {};
@@ -152,10 +151,6 @@ async function synchronise(bufferList) {
   gain.connect(context.destination);
   console.log("called");
   console.log(audioElements);
-  for (i = 0; i < noOfSpeaker; i++) {
-    //audioElements[i].start(0);
-  }
-  exec = true;
 
   socket.emit('standby', roomId);
 
