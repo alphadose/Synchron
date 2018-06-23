@@ -251,15 +251,13 @@ async function displaySubtitles (subs) {
   var t = new Date().getTime() / 1000 - originalTime;
   var n = document.getElementById("subs");
 
-  subtitles.forEach(function (element, index, array) {
-
-    if (t >= element.start && t <= element.end) {
-
-      document.getElementById("subs").setAttribute("text", {
-        value: element.text
-      })
-
+  for(let index in subtitles) {
+    if(t >= subtitles[index].start && t <= subtitles[index].end) {
+      document.getElementById("subs").setAttribute("text", {value: subtitles[index].text});
+      break;
     }
-
-  });
+    else
+      document.getElementById("subs").setAttribute("text", {value: ""});
+  }
+  
 }
