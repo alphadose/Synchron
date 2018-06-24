@@ -1,4 +1,4 @@
-function movePerson(direction) {
+async function movePerson(direction) {
     if (direction.match(/ight/gi) || direction.match(/back/gi) || direction.match(/forward/gi) || direction.match(/left/gi) || direction.match(/stop/gi)) {
         let mainCamera = document.createElement("a-animation");
         let parent = document.getElementById("main-camera")
